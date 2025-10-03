@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+.homie {
+  background-color: #2D0354;
+  height: 100vh;
+  color: white;
+}
