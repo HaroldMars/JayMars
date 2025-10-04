@@ -1,7 +1,14 @@
 @import "tailwindcss";
 
+
+
 .homie {
-  background-color: #2D0354;
+  background: linear-gradient(#6A099E, #8340A8) ;
   height: 100vh;
   color: white;
+}
+
+.text {
+  padding-top: 100px;
+  text-align: center;
 }
