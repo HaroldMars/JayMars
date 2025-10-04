@@ -12,3 +12,16 @@
   padding-top: 100px;
   text-align: center;
 }
+
+.glass {
+  background-color: rgba(255, 255, 255, 0.2); 
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); 
+  border-radius: 8px;
+  padding: 10px; 
+  width: 110%; 
+  max-width: 400px;
+  height: 100px;
+  display: flex;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
