@@ -22,7 +22,7 @@ export default function Home() {
 
         
         {/* Button to scroll down */}
-        <div className="absolute justify-center mt-180 w-full flex">
+        <div className="absolute justify-center mt-120 w-full flex">
           <button
             onClick={handleMoreBelowClick}
             className="pislit text-center text-black px-4 p-5 py-2 rounded text-2xl"
@@ -35,7 +35,7 @@ export default function Home() {
         
       {/* Content below to scroll to */}
       <div ref={targetRef} className="h-250 absolute text-center">
-        <div class="wave-container pt-5">
+        <div class="wave-container pt-7">
     <h1 class="wave-text">
         <span>A</span><span>B</span><span>O</span><span>U</span><span>T</span>
     </h1>
