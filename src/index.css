@@ -1,15 +1,7 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
 
 
 
-* {
-  font-family: "Inter", sans-serif;
-}
-
-.homie {
-  
-}
 
 .text {
   padding-top: 100px;
@@ -360,6 +352,8 @@ body {
     margin-bottom: 82px;
     overflow-y: auto;
     padding: 25px 22px;
+    scrollbar-width: thin;
+    scrollbar-color: #4A90E2 transparent;
 }
 
 .chat-body .message {

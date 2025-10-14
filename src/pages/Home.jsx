@@ -1,9 +1,35 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Logo from "../assets/logo.png/";
 import Pet from "../assets/logodog.png/";
+import ChatMessage from "../components/ChatMessage";
 import ChatbotIcon from "../components/ChatbotIcon";
+import ChatForm from "../components/ChatForm";
 
 export default function Home() {
+  const [chatHistory, setChatHistory] = useState([]);
+
+  const generateBotResponse = async (history) => {
+    history = history.map(({ role, text }) => ({ role, parts: [{ text }]}));
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contents: history }),
+    };
+
+    try {
+      
+const response = await fetch(import.meta.env.VITE_API_URL, requestOptions);
+      const data = await response.json();
+      if (!response.ok)
+        throw new Error(data.error.message || "Something went wrong!");
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // Create a ref for the target section
   const targetRef = useRef(null);
 
@@ -39,9 +65,9 @@ export default function Home() {
             <div className="header-info">
               {/* Uncomment or define ChatbotIcon if you have it */}
               <ChatbotIcon />
-              <h2 className="logo-text">ChatBot</h2>
+              <h2 className="logo-text">JayHarold_Bot</h2>
             </div>
-            <button class="material-symbols-rounded">
+            <button className="material-symbols-rounded">
               keyboard_arrow_down
             </button>
           </div>
@@ -53,28 +79,26 @@ export default function Home() {
                 hey there, How Can I help you today?
               </p>
             </div>
-            <div className="message user-message">
-              <p className="message-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </p>
-            </div>
+
+            {chatHistory.map((chat, index) => (
+              <ChatMessage key={index} chat={chat} />
+            ))}
           </div>
-            {/* Chat Footer */}
+          {/* Chat Footer */}
           <div className="chat-footer">
-            <form action="#" className="chat-form">
-              <input type="text" placeholder="Message..." className="message-input" required />
-              <button class="material-symbols-rounded">
-              arrow_upward
-            </button>
-            </form>
+            <ChatForm
+              chatHistory={chatHistory}
+              setChatHistory={setChatHistory}
+              generateBotResponse={generateBotResponse}
+            />
           </div>
         </div>
       </div>
 
       {/* Content below to scroll to */}
       <div ref={targetRef} className="h-500 absolute text-center">
-        <div class="wave-container pt-7">
-          <h1 class="wave-text">
+        <div className="wave-container pt-7">
+          <h1 className="wave-text">
             <span>A</span>
             <span>B</span>
             <span>O</span>
