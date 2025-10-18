@@ -4,29 +4,40 @@ import Pet from "../assets/logodog.png/";
 import ChatMessage from "../components/ChatMessage";
 import ChatbotIcon from "../components/ChatbotIcon";
 import ChatForm from "../components/ChatForm";
+import { config } from "../utils/config";
 
 export default function Home() {
   const [chatHistory, setChatHistory] = useState([]);
 
   const generateBotResponse = async (history) => {
-    history = history.map(({ role, text }) => ({ role, parts: [{ text }]}));
+    history = history.map(({ role, text }) => ({ role, parts: [{ text }] }));
 
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "x-goog-api-key": `${config.Gemini_ApiKey}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ contents: history }),
     };
 
     try {
-      
-const response = await fetch(import.meta.env.VITE_API_URL, requestOptions);
+      const response = await fetch(
+        config.Gemini_ApiUrl,
+        requestOptions
+      );
       const data = await response.json();
       if (!response.ok)
         throw new Error(data.error.message || "Something went wrong!");
 
-      console.log(data);
+      data.candidates.forEach((candidate) => {
+        setChatHistory((history) => [
+          ...history.filter((msg) => msg.text !== "Thinking..."),
+          { role: "model", text: candidate.content.parts.map((part) => part.text).join("") },
+        ]);
+      });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
