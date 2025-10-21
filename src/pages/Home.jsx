@@ -8,6 +8,7 @@ import { config } from "../utils/config";
 
 export default function Home() {
   const [chatHistory, setChatHistory] = useState([]);
+  const [showChatbot, setShowChatbot] = useState(false);
 
   const generateBotResponse = async (history) => {
     history = history.map(({ role, text }) => ({ role, parts: [{ text }] }));
@@ -70,7 +71,11 @@ export default function Home() {
       </div>
 
       {/* ChatBot Section */}
-      <div className="container">
+      <div className={`container ${showChatbot ? "show-chatbot" : ""}`}>
+        <button onClick={() => setShowChatbot(prev => !prev)} id="chatbot-toggler">
+            <span className="material-symbols-rounded">mode_comment</span>
+            <span className="material-symbols-rounded">close</span>
+        </button>
         <div className="chatbot-popup">
           <div className="chat-header">
             <div className="header-info">

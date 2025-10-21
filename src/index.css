@@ -278,14 +278,30 @@ body {
 }
 
 .chatbot-popup {
-    position: relative;
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+    bottom: 90px;
+    right: 35px;
     width: 90%; 
     max-width: 420px;
     background: white;
     overflow: hidden;
+    transform-origin: bottom right;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
     margin: 0 auto; 
+    /* Updated transition for smoothness */
+    transition: all 0.3s ease-in-out;
+    /* Removed duplicate transform declaration */
+    transform: scale(0.2);
+    z-index: 5;
+}
+
+.container.show-chatbot .chatbot-popup {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
 }
 
 .chatbot-popup .chat-header {
@@ -462,3 +478,33 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
+
+#chatbot-toggler {
+    position: fixed;
+    z-index: 5;
+    bottom: 30px;
+    right: 35px;
+    border: none;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    cursor: pointer;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    background: #4A90E2;
+}
+
+#chatbot-toggler span {
+    position: absolute;
+    color: white;
+}
+
+#chatbot-toggler span:last-child,
+.container.show-chatbot #chatbot-toggler span:first-child {
+    opacity: 0;
+}
+
+.container.show-chatbot #chatbot-toggler span:last-child {
+    opacity: 1;
+}
