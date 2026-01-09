@@ -194,7 +194,7 @@ html {
   .chatbot-popup {
     width: 85%;
     border-radius: 10px;
-    
+    height: 55%;
   }
 }
 

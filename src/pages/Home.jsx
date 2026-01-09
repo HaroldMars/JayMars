@@ -201,7 +201,7 @@ export default function Home() {
         </div>
       </div>
       <div id="home" className="h-[100vh]">
-        <h1 className="text-8xl text-center font-bold pt-40  text-white">JAY HAROLD MARS ABEJAR</h1>
+        <h1 className="text-6xl md:text-8xl text-center font-bold pt-40 text-white">JAY HAROLD MARS ABEJAR</h1>
         <p className="text-center text-white">BSIT Student, 1st year college Developer </p>
       </div>
       <div id="about" className="bg-black/50 h-[100vh]">
