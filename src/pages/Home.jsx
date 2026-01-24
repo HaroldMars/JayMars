@@ -122,7 +122,7 @@ export default function Home() {
                 <div>
                   <img
                     className="profile"
-                    src="https://scontent.fmnl25-1.fna.fbcdn.net/v/t39.30808-6/527724206_1978165126305131_7263521750765554623_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFeKqtcWGp1rZpFLxK_H9KcTsBK9TbdY2JOwEr1Nt1jYlwHF8o0b3ozjsC3Pek219aEIYTySB529jo-gBwWkrW9&_nc_ohc=X8Oi7Kl9jt4Q7kNvwHaU82w&_nc_oc=AdlzVI3ApCtMVXxw7A8ZiR8MscWJEnxkuWCgWt0nD22QfTTPyRPb2wVHuvwibt1Oyfg&_nc_zt=23&_nc_ht=scontent.fmnl25-1.fna&_nc_gid=fGt3xFs_uaKhFyxQcGj8Wg&oh=00_AfpEBFN4Cbp8uAnexvzIA9Z8GqJoqSOBzIUQctKdqI3Jhw&oe=6966BF8A"
+                    src="https://scontent.fsin11-1.fna.fbcdn.net/v/t39.30808-6/527724206_1978165126305131_7263521750765554623_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFeKqtcWGp1rZpFLxK_H9KcTsBK9TbdY2JOwEr1Nt1jYlwHF8o0b3ozjsC3Pek219aEIYTySB529jo-gBwWkrW9&_nc_ohc=e25NW6QfhJEQ7kNvwHSXhtV&_nc_oc=AdnbvzIWqhQFFfN7uy-RpoucCzNJm5aznYppDl0G54S1tSb-wyBj6TGIpsHLLcrxz0Q&_nc_zt=23&_nc_ht=scontent.fsin11-1.fna&_nc_gid=mbpJPqRhzgiYVIeDqAsz_w&oh=00_AfqXyd6GbEt-QFlLTIHV8s8ar-rqPSjXoO1EIn0v30AmkQ&oe=69796CCA"
                     alt=""
                   />
                 </div>
@@ -213,9 +213,16 @@ export default function Home() {
        </div>
       <div id="projects" className="bg-white/10 h-[100vh]">
         <h1 className="text-6xl text-center p-10 text-white font-bold">PROJECTS</h1>
+            
+         <div className="glass-container">
+          <img className="logo" src={Pet} alt="" />
+          <h1 className="text-2xl pb-2">PET-LOCATION</h1>
+          <p>Capstone Project 2024-2025</p>
+         </div>
+          
       </div>
-      <div id="contact" className="bg-purple-500 h-[100vh]">
-        CONTACT
+      <div id="contact" className="bg-black/50 h-[100vh]">
+      <h1 className="text-center text-white p-10 text-5xl">CONTACT</h1>
       </div>
     </>
   );
