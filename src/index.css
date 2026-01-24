@@ -403,7 +403,7 @@ html {
 .glass-container {
   margin-top: 10px;
   width: 300px;
-  height: 200px;
+  height: 230px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -412,11 +412,58 @@ html {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   color: #fff;
   text-align: center;
+  margin-left: 20%;
 }
 
-.logo{
-  width: 100px;
-  margin-left: 10px;
-  justify-content: center;
-  align-items: center;
+.glass-container:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
 }
+
+
+.text-expand {
+  position: relative;
+}
+
+.expand-btn {
+  position: absolute;
+  position: fixed; 
+  left: 36%;
+  z-index: 10;
+  color: #fff;
+  padding: 8px 20px;
+  border: none;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  left: 36%;
+  margin-top: 10px;
+}
+
+.expand-btn:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.expanded-text {
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  text-align: center;
+  margin-top: 60px;
+  z-index: 1;
+}
+

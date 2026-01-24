@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import Logo from "../assets/logo.png"; // Removed trailing slash
 import Pet from "../assets/logodog.png"; // Removed trailing slash
 import ChatMessage from "../components/ChatMessage";
@@ -6,9 +6,15 @@ import ChatbotIcon from "../components/ChatbotIcon";
 import ChatForm from "../components/ChatForm";
 import { config } from "../utils/config";
 
+
 export default function Home() {
   const [chatHistory, setChatHistory] = useState([]);
   const [showChatbot, setShowChatbot] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleToggle = () => {
+    setIsExpanded((prev) => !prev);
+  };
 
   const generateBotResponse = async (history) => {
     history = history.map(({ role, text }) => ({ role, parts: [{ text }] }));
@@ -76,7 +82,7 @@ export default function Home() {
           duration: 20000 + Math.random() * 10000, // 20-30 sec
           iterations: Infinity,
           easing: "linear",
-        }
+        },
       );
 
       // Save reference for cleanup if needed
@@ -95,7 +101,9 @@ export default function Home() {
     };
   }, []);
 
-  return (
+// removed manual DOM expansion logic; using React state instead
+
+return (
     <>
       <div className="mx-auto rounded-lg w-full max-w-4xl h-auto p-4 sm:p-8">
         <div className="background"></div>
@@ -201,28 +209,49 @@ export default function Home() {
         </div>
       </div>
       <div id="home" className="h-[100vh]">
-        <h1 className="text-6xl md:text-8xl text-center font-bold pt-40 text-white">JAY HAROLD MARS ABEJAR</h1>
-        <p className="text-center text-white">BSIT Student, 1st year college Developer </p>
+        <h1 className="text-6xl md:text-8xl text-center font-bold pt-40 text-white">
+          JAY HAROLD MARS ABEJAR
+        </h1>
+        <p className="text-center text-white">
+          BSIT Student, 1st year college Developer{" "}
+        </p>
       </div>
       <div id="about" className="bg-black/50 h-[100vh]">
-        <h1 className="text-5xl text-center font-bold pt-20  text-white">ABOUT ME</h1>
-        <div> 
+        <h1 className="text-5xl text-center font-bold pt-20  text-white">
+          ABOUT ME
+        </h1>
+        <div>
           <p className="text-left max-w-xl mx-4 md:mx-10 mt-10 text-2xl md:text-3xl text-white">
-  I am a student with a vision of success, an entrepreneurial mindset, and the drive to achieve my goals. Starting from scratch, I am determined to reach them. I am currently working as a freelancer, and I am excited to see how far I will go in the next five years.
-</p></div>
-       </div>
+            I am a student with a vision of success, an entrepreneurial mindset,
+            and the drive to achieve my goals. Starting from scratch, I am
+            determined to reach them. I am currently working as a freelancer,
+            and I am excited to see how far I will go in the next five years.
+          </p>
+        </div>
+      </div>
       <div id="projects" className="bg-white/10 h-[100vh]">
-        <h1 className="text-6xl text-center p-10 text-white font-bold">PROJECTS</h1>
-            
-         <div className="glass-container">
-          <img className="logo" src={Pet} alt="" />
-          <h1 className="text-2xl pb-2">PET-LOCATION</h1>
+        <h1 className="text-6xl text-center p-10 text-white font-bold">
+          PROJECTS
+        </h1>
+
+        <div className="glass-container">
+          <img className="w-25 ml-23" src={Pet} alt="" />
+          <h1 className="text-2xl ">PET-LOCATION</h1>
           <p>Capstone Project 2024-2025</p>
-         </div>
-          
+<div className="text-expand">
+  <button className="expand-btn" onClick={handleToggle}>
+    {isExpanded ? 'X' : 'More'}
+  </button>
+  <div className="expanded-text" style={{ display: isExpanded ? 'block' : 'none' }}>
+    <p className='mt-15 mb-5'>This research develops a GPS system to help pet owners track missing dogs. The current prototype has accuracy limits, but future improvements aim to make it more reliable.</p>
+    <p>you can check my project website</p>
+    <a href="https://pet-location-eight.vercel.app">More  <br/> Pet-Location</a>
+  </div>
+</div>
+        </div>
       </div>
       <div id="contact" className="bg-black/50 h-[100vh]">
-      <h1 className="text-center text-white p-10 text-5xl">CONTACT</h1>
+        <h1 className="text-center text-white p-10 text-5xl">CONTACT</h1>
       </div>
     </>
   );
