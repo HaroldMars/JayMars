@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Logo from "../assets/logo.png"; // Removed trailing slash
 import Pet from "../assets/logodog.png"; // Removed trailing slash
+import bus from "../assets/bus.png";
 import ChatMessage from "../components/ChatMessage";
 import ChatbotIcon from "../components/ChatbotIcon";
 import ChatForm from "../components/ChatForm";
 import { config } from "../utils/config";
 
-
 export default function Home() {
-  const [chatHistory, setChatHistory] = useState([]);
-  const [showChatbot, setShowChatbot] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
+   const [chatHistory, setChatHistory] = useState([]);
+   const [showChatbot, setShowChatbot] = useState(false);
+  // const [isExpanded, setIsExpanded] = useState(false);
 
-  const handleToggle = () => {
-    setIsExpanded((prev) => !prev);
-  };
+  // const handleToggle = () => {
+  //   setIsExpanded((prev) => !prev);
+  // };
 
   const generateBotResponse = async (history) => {
     history = history.map(({ role, text }) => ({ role, parts: [{ text }] }));
@@ -101,9 +101,9 @@ export default function Home() {
     };
   }, []);
 
-// removed manual DOM expansion logic; using React state instead
+  // removed manual DOM expansion logic; using React state instead
 
-return (
+  return (
     <>
       <div className="mx-auto rounded-lg w-full max-w-4xl h-auto p-4 sm:p-8">
         <div className="background"></div>
@@ -227,29 +227,44 @@ return (
             determined to reach them. I am currently working as a freelancer,
             and I am excited to see how far I will go in the next five years.
           </p>
+          <div className="tag left-2 text-left max-w-sm mx-2 md:mx-5 mt-30 text-1xl p-5 md:text-2xl font-semibold text-white transition-transform hover:scale-105 border border-white border-opacity-20 rounded-lg shadow-lg">
+            <p className="">ILLUMINARY PEAK</p>
+            <p className="text-sm">CEO/FOUNDER</p>
+            <p className="text-sm">(Software Company)</p>
+          </div>
         </div>
       </div>
-      <div id="projects" className="bg-white/10 h-[100vh]">
+      <div id="projects" className="bg-white/10 h-[130vh]">
         <h1 className="text-6xl text-center p-10 text-white font-bold">
           PROJECTS
         </h1>
 
-        <div className="glass-container">
-          <img className="w-25 ml-23" src={Pet} alt="" />
-          <h1 className="text-2xl ">PET-LOCATION</h1>
-          <p>Capstone Project 2024-2025</p>
-<div className="text-expand">
-  <button className="expand-btn" onClick={handleToggle}>
-    {isExpanded ? 'X' : 'More'}
-  </button>
-  <div className="expanded-text" style={{ display: isExpanded ? 'block' : 'none' }}>
-    <p className='mt-15 mb-5'>This research develops a GPS system to help pet owners track missing dogs. The current prototype has accuracy limits, but future improvements aim to make it more reliable.</p>
-    <p>you can check my project website</p>
-    <a href="https://pet-location-eight.vercel.app">More  <br/> Pet-Location</a>
+        <div class="projects-section">
+  <div class="projects-container">
+    <div class="project-card">
+      <img src={Pet} class="project-image" />
+      <h3 class="project-title">Pet-Location</h3>
+      <p class="project-description">Locate your companion, safety</p>
+    </div>
+    <div class="project-card">
+      <img src={Logo}class="project-image" />
+      <h3 class="project-title mt-20">RCJCIM</h3>
+      <p class="project-description"></p>
+    </div>
+    <div class="project-card">
+      <img src={bus}  class="project-image" />
+      <h3 class="project-title">Wander Philippines</h3>
+      <p class="project-description">Wander Philippines is dedicated to providing efficient software as a service to commuters, ensuring their satisfaction and delight with every ride.</p>
+    </div>
+    {/* <div class="project-card">
+      <img src="project4.png" class="project-image" />
+      <h3 class="project-title">Project Four</h3>
+      <p class="project-description">A brief description of Project Four.</p>
+    </div> */}
   </div>
 </div>
-        </div>
-      </div>
+</div>
+      
       <div id="contact" className="bg-black/50 h-[100vh]">
         <h1 className="text-center text-white p-10 text-5xl">CONTACT</h1>
       </div>
