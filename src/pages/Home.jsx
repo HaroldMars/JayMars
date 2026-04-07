@@ -16,6 +16,7 @@ export default function Home() {
   //   setIsExpanded((prev) => !prev);
   // };
 
+
   const generateBotResponse = async (history) => {
     history = history.map(({ role, text }) => ({ role, parts: [{ text }] }));
 
@@ -130,7 +131,7 @@ export default function Home() {
                 <div>
                   <img
                     className="profile"
-                    src="https://scontent.fsin11-1.fna.fbcdn.net/v/t39.30808-6/527724206_1978165126305131_7263521750765554623_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFeKqtcWGp1rZpFLxK_H9KcTsBK9TbdY2JOwEr1Nt1jYlwHF8o0b3ozjsC3Pek219aEIYTySB529jo-gBwWkrW9&_nc_ohc=e25NW6QfhJEQ7kNvwHSXhtV&_nc_oc=AdnbvzIWqhQFFfN7uy-RpoucCzNJm5aznYppDl0G54S1tSb-wyBj6TGIpsHLLcrxz0Q&_nc_zt=23&_nc_ht=scontent.fsin11-1.fna&_nc_gid=mbpJPqRhzgiYVIeDqAsz_w&oh=00_AfqXyd6GbEt-QFlLTIHV8s8ar-rqPSjXoO1EIn0v30AmkQ&oe=69796CCA"
+                    src="https://scontent.fceb2-1.fna.fbcdn.net/v/t39.30808-1/527724206_1978165126305131_7263521750765554623_n.jpg?stp=cp6_dst-jpg_s320x320_tt6&_nc_cat=103&ccb=1-7&_nc_sid=1d2534&_nc_eui2=AeFeKqtcWGp1rZpFLxK_H9KcTsBK9TbdY2JOwEr1Nt1jYlwHF8o0b3ozjsC3Pek219aEIYTySB529jo-gBwWkrW9&_nc_ohc=tJEJwJYarpAQ7kNvwHdtDWR&_nc_oc=AdqNAtuJyChkdMvqoJq-4poRR_PuQoUvRvK5E9ZU7YfVSlVORwVko-fWyE1MjMEqqsg&_nc_zt=24&_nc_ht=scontent.fceb2-1.fna&_nc_gid=iWSIcihnOxZkFjp6ONbb2g&_nc_ss=7a3a8&oh=00_Af0A6a5WDOeYioi1Sks63_cDay0TGOHw7ELmsqHIEq4kjw&oe=69DA824C"
                     alt=""
                   />
                 </div>
@@ -176,7 +177,7 @@ export default function Home() {
             <div className="chat-header">
               <div className="header-info">
                 <ChatbotIcon />
-                <h2 className="logo-text">JayHarold_Bot</h2>
+                <h2 className="logo-text">Diosdado</h2>
               </div>
               <button className="material-symbols-rounded">
                 keyboard_arrow_down
@@ -217,25 +218,25 @@ export default function Home() {
         </p>
       </div>
       <div id="about" className="bg-black/50 h-[100vh]">
-        <h1 className="text-5xl text-center font-bold pt-20  text-white">
+        <h1 className="text-5xl text-center font-bold pt-25  text-white">
           ABOUT ME
         </h1>
         <div>
-          <p className="text-left max-w-xl mx-4 md:mx-10 mt-10 text-2xl md:text-3xl text-white">
+          <p className="text-center text-white text-2xl mt-10">
             I am a student with a vision of success, an entrepreneurial mindset,
             and the drive to achieve my goals. Starting from scratch, I am
             determined to reach them. I am currently working as a freelancer,
             and I am excited to see how far I will go in the next five years.
           </p>
-          <div className="tag left-2 text-left max-w-sm mx-2 md:mx-5 mt-30 text-1xl p-5 md:text-2xl font-semibold text-white transition-transform hover:scale-105 border border-white border-opacity-20 rounded-lg shadow-lg">
+          {/* <div className="tag left-2 text-left max-w-sm mx-2 md:mx-5 mt-30 text-1xl p-5 md:text-2xl font-semibold text-white transition-transform hover:scale-105 border border-white border-opacity-20 rounded-lg shadow-lg">
             <p className="">ILLUMINARY PEAK</p>
             <p className="text-sm">CEO/FOUNDER</p>
             <p className="text-sm">(Software Company)</p>
-          </div>
+          </div> */}
         </div>
       </div>
       <div id="projects" className="bg-white/10 h-[130vh]">
-        <h1 className="text-6xl text-center p-10 text-white font-bold">
+        <h1 className="text-6xl text-center pt-20 p-10 text-white font-bold">
           PROJECTS
         </h1>
 
@@ -265,9 +266,15 @@ export default function Home() {
 </div>
 </div>
       
-      <div id="contact" className="bg-black/50 h-[100vh]">
-        <h1 className="text-center text-white p-10 text-5xl">CONTACT</h1>
-      </div>
+       <div id="contact">
+        <div class="contact-info">
+            <h1 className="text-center text-white p-10 text-5xl">CONTACT</h1>
+            <h2>Gmail: abejar199@gmail.com</h2>
+            <h2>FB: Jay HaroldMars V. Abejar</h2>
+            <h2>My Number: +63 927 386 5959</h2>
+        </div>
+    </div>
+
     </>
   );
 }
