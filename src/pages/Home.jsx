@@ -7,11 +7,6 @@ import ChatbotIcon from "../components/ChatbotIcon";
 import ChatForm from "../components/ChatForm";
 import { config } from "../utils/config";
 
-// ── Data ─────────────────────────────────────────────────────────────────────
-
-
-
-const PROFILE_IMG =
   "https://scontent.fsin11-1.fna.fbcdn.net/v/t39.30808-6/527724206_1978165126305131_7263521750765554623_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFeKqtcWGp1rZpFLxK_H9KcTsBK9TbdY2JOwEr1Nt1jYlwHF8o0b3ozjsC3Pek219aEIYTySB529jo-gBwWkrW9&_nc_ohc=e25NW6QfhJEQ7kNvwHSXhtV&_nc_oc=AdnbvzIWqhQFFfN7uy-RpoucCzNJm5aznYppDl0G54S1tSb-wyBj6TGIpsHLLcrxz0Q&_nc_zt=23&_nc_ht=scontent.fsin11-1.fna&_nc_gid=mbpJPqRhzgiYVIeDqAsz_w&oh=00_AfqXyd6GbEt-QFlLTIHV8s8ar-rqPSjXoO1EIn0v30AmkQ&oe=69796CCA";
 
 const NAV_LINKS = ["home", "about", "projects", "services", "contact"];

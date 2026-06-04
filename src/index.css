@@ -61,14 +61,24 @@ html {
   }
 }
 
+/* Base styles */
 .profile {
   border-radius: 50%;
-  width: 50px;
+  width: 50px; /* Default width for larger screens */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  align-items: center;
-  position: relative;
 }
 
+<<<<<<< HEAD
+=======
+/* Media query for mobile devices */
+@media (max-width: 430px) {
+  .profile {
+    width: 70px; /* Adjust this value as needed */
+  }
+}
+
+
+>>>>>>> 6a78b01d78a196702a7ebc368e3faa6a26bcf8a4
 .navigation {
   display: flex;
   align-items: center;
@@ -84,6 +94,8 @@ html {
 }
 
 .mynav {
+  position: fixed;
+  z-index: 5;
   border: red solid 2px;
   height: 80px;
   border-radius: 10px;
@@ -403,7 +415,11 @@ html {
 .glass-container {
   margin-top: 10px;
   width: 300px;
+<<<<<<< HEAD
   height: 200px;
+=======
+  height: 230px;
+>>>>>>> 6a78b01d78a196702a7ebc368e3faa6a26bcf8a4
   background: rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -412,6 +428,7 @@ html {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   color: #fff;
   text-align: center;
+<<<<<<< HEAD
   display: flex;
 }
 
@@ -447,3 +464,179 @@ html {
     .card span {
       display: block;
     }
+=======
+  margin-left: 20%;
+}
+
+.glass-container:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+
+.text-expand {
+  position: relative;
+}
+
+.expand-btn {
+  position: absolute;
+  position: fixed; 
+  left: 36%;
+  z-index: 10;
+  color: #fff;
+  padding: 8px 20px;
+  border: none;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  left: 36%;
+  margin-top: 10px;
+}
+
+.expand-btn:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.expanded-text {
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  text-align: center;
+  margin-top: 60px;
+  z-index: 1;
+}
+
+.tag {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+/* Base styles (for larger screens) */
+#projects {
+  background: rgba(255, 255, 255, 0.1);
+  height: 130vh; /* Adjust this value based on your design requirements */
+  padding: 50px 20px;
+  color: white;
+  text-align: center;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  #projects {
+    height: auto; /* Adjust the height based on content if needed, or use 'auto' to adjust dynamically */
+    padding: 30px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  #projects {
+    padding: 20px 5px;
+  }
+}
+
+
+/* General section styling */
+.projects-section {
+  padding: 50px 20px;
+  color: white;
+  text-align: center;
+}
+
+/* Container for project cards */
+.projects-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Individual project card styles */
+.project-card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.project-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+}
+
+/* Project image styling */
+.project-image {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+/* Project title styling */
+.project-title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+/* Project description styling */
+.project-description {
+  font-size: 1em;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+  .projects-container {
+    justify-content: space-around;
+  }
+  
+  .project-card {
+    width: calc((100% / 2) - 40px); /* Two cards per row on larger screens */
+  }
+}
+
+/* Media query for even larger screens */
+@media (min-width: 1024px) {
+  .project-card {
+    width: calc((100% / 3) - 40px); /* Three cards per row on larger screens */
+  }
+}
+
+ #contact {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30vh; /* Full viewport height */
+            width: 100%; /* Full width of the screen */
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background for better readability on images or videos */
+            padding-bottom: 50px;
+        }
+        .contact-info {
+            text-align: center; /* Center the text within the container */
+        }
+        h1 {
+            color: white; /* Text color is white */
+        }
+        h2 {
+            color: white; /* Text color for contact details */
+        }
+>>>>>>> 6a78b01d78a196702a7ebc368e3faa6a26bcf8a4
