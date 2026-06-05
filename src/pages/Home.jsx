@@ -5,7 +5,7 @@ import ChatMessage from "../components/ChatMessage";
 import ChatbotIcon from "../components/ChatbotIcon";
 import ChatForm from "../components/ChatForm";
 import { config } from "../utils/config";
-import Jay from "../assets/MyPic.jpg";
+import Jay from "../assets/Mypic.jpg";
 
 const NAV_LINKS = ["home", "about", "projects", "services", "contact"];
 
