@@ -207,7 +207,7 @@ export default function Home() {
             className="flex items-center gap-2.5 group"
           >
             <img
-              src={PROFILE_IMG}
+              src={Logo}
               alt="Jay Harold"
               className="w-8 h-8 rounded-full object-cover border border-white/20 group-hover:border-purple-400/60 transition-colors"
             />

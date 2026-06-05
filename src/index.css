@@ -68,8 +68,7 @@ html {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-<<<<<<< HEAD
-=======
+
 /* Media query for mobile devices */
 @media (max-width: 430px) {
   .profile {
@@ -78,7 +77,6 @@ html {
 }
 
 
->>>>>>> 6a78b01d78a196702a7ebc368e3faa6a26bcf8a4
 .navigation {
   display: flex;
   align-items: center;
@@ -415,11 +413,11 @@ html {
 .glass-container {
   margin-top: 10px;
   width: 300px;
-<<<<<<< HEAD
+
   height: 200px;
-=======
+
   height: 230px;
->>>>>>> 6a78b01d78a196702a7ebc368e3faa6a26bcf8a4
+
   background: rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -428,7 +426,7 @@ html {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   color: #fff;
   text-align: center;
-<<<<<<< HEAD
+
   display: flex;
 }
 
@@ -464,9 +462,7 @@ html {
     .card span {
       display: block;
     }
-=======
-  margin-left: 20%;
-}
+
 
 .glass-container:hover {
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
@@ -639,4 +635,4 @@ html {
         h2 {
             color: white; /* Text color for contact details */
         }
->>>>>>> 6a78b01d78a196702a7ebc368e3faa6a26bcf8a4
+
