@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import Logo from "../assets/logo.png";
 import Pet from "../assets/logodog.png";
@@ -6,9 +5,7 @@ import ChatMessage from "../components/ChatMessage";
 import ChatbotIcon from "../components/ChatbotIcon";
 import ChatForm from "../components/ChatForm";
 import { config } from "../utils/config";
-// import Jay from "../assets/Jay";
-
-  "https://scontent.fsin11-1.fna.fbcdn.net/v/t39.30808-6/527724206_1978165126305131_7263521750765554623_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFeKqtcWGp1rZpFLxK_H9KcTsBK9TbdY2JOwEr1Nt1jYlwHF8o0b3ozjsC3Pek219aEIYTySB529jo-gBwWkrW9&_nc_ohc=e25NW6QfhJEQ7kNvwHSXhtV&_nc_oc=AdnbvzIWqhQFFfN7uy-RpoucCzNJm5aznYppDl0G54S1tSb-wyBj6TGIpsHLLcrxz0Q&_nc_zt=23&_nc_ht=scontent.fsin11-1.fna&_nc_gid=mbpJPqRhzgiYVIeDqAsz_w&oh=00_AfqXyd6GbEt-QFlLTIHV8s8ar-rqPSjXoO1EIn0v30AmkQ&oe=69796CCA";
+import Jay from "../assets/MyPic.jpg";
 
 const NAV_LINKS = ["home", "about", "projects", "services", "contact"];
 
@@ -19,8 +16,8 @@ const TECH_STACK = [
   { name: "Python",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
   { name: "C++",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
   { name: "Figma",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+    // { name: "Tailwind",   icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" },
   { name: "React",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-  { name: "Tailwind",   icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" },
   { name: "MongoDB",    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
   { name: "GitHub",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
   { name: "VS Code",    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
@@ -35,7 +32,6 @@ const SERVICES = [
   { icon: "🤖", title: "AI Integration",   desc: "Integrating AI tools and building smart features into web applications." },
 ];
 
-// ── Scroll-triggered fade-in ──────────────────────────────────────────────────
 function useInView(threshold = 0.12) {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
@@ -67,7 +63,6 @@ function FadeIn({ children, delay = 0, className = "" }) {
   );
 }
 
-// ── Section heading ───────────────────────────────────────────────────────────
 function SectionHeading({ children, sub }) {
   return (
     <FadeIn>
@@ -87,7 +82,6 @@ function SectionHeading({ children, sub }) {
   );
 }
 
-// ── Floating particles (from your original code) ──────────────────────────────
 function Particles() {
   const ref = useRef(null);
   useEffect(() => {
@@ -130,14 +124,12 @@ function Particles() {
   return <div ref={ref} className="fixed inset-0 pointer-events-none overflow-hidden z-0" />;
 }
 
-// ── Main export ───────────────────────────────────────────────────────────────
 export default function Home() {
   const [chatHistory, setChatHistory] = useState([]);
   const [showChatbot, setShowChatbot]  = useState(false);
   const [menuOpen,    setMenuOpen]     = useState(false);
   const [scrolled,    setScrolled]     = useState(false);
 
-  // Your original Gemini bot logic — untouched
   const generateBotResponse = async (history) => {
     history = history.map(({ role, text }) => ({ role, parts: [{ text }] }));
     const requestOptions = {
@@ -182,7 +174,6 @@ export default function Home() {
       className="relative text-white font-sans overflow-x-hidden"
       style={{ background: "linear-gradient(135deg,#0c0c14 0%,#12121e 50%,#0c0c18 100%)" }}
     >
-      {/* Particles */}
       <Particles />
 
       {/* Ambient glow blobs */}
@@ -192,7 +183,7 @@ export default function Home() {
         <div style={{ position:"absolute", bottom:"8%",left:"35%", width:300, height:300, borderRadius:"50%", background:"radial-gradient(circle,rgba(236,72,153,.07),transparent 70%)", filter:"blur(50px)" }} />
       </div>
 
-      {/* ── NAVBAR ──────────────────────────────────────────────────────────── */}
+      {/* ── NAVBAR ── */}
       <header
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
@@ -202,13 +193,9 @@ export default function Home() {
         }}
       >
         <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
-          {/* Logo / name pill */}
-          <button
-            onClick={() => scrollTo("home")}
-            className="flex items-center gap-2.5 group"
-          >
+          <button onClick={() => scrollTo("home")} className="flex items-center gap-2.5 group">
             <img
-              src={Pet}
+              src={Jay}
               alt="Jay Harold"
               className="w-8 h-8 rounded-full object-cover border border-white/20 group-hover:border-purple-400/60 transition-colors"
             />
@@ -217,7 +204,6 @@ export default function Home() {
             </span>
           </button>
 
-          {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6">
             {NAV_LINKS.map((id) => (
               <button
@@ -228,17 +214,15 @@ export default function Home() {
                 {id}
               </button>
             ))}
-            {/* Ask Nica AI button */}
             <button
               onClick={() => setShowChatbot((p) => !p)}
               className="flex items-center gap-1.5 text-sm px-4 py-1.5 rounded-full font-medium transition-all hover:opacity-90"
               style={{ background: "linear-gradient(135deg,#7c3aed,#ec4899)" }}
             >
-              <span style={{ fontSize: 11 }}>✦</span> Ask Nica AI
+              <span style={{ fontSize: 11 }}>✦</span> Ask Nyla AI
             </button>
           </nav>
 
-          {/* Mobile hamburger */}
           <button
             className="md:hidden text-white/70 hover:text-white transition-colors"
             onClick={() => setMenuOpen((p) => !p)}
@@ -258,7 +242,6 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Mobile menu */}
         {menuOpen && (
           <div
             className="md:hidden px-5 pb-4 flex flex-col gap-1"
@@ -278,19 +261,18 @@ export default function Home() {
               className="mt-3 self-start flex items-center gap-1.5 text-sm px-4 py-2 rounded-full font-medium"
               style={{ background: "linear-gradient(135deg,#7c3aed,#ec4899)" }}
             >
-              <span style={{ fontSize: 11 }}>✦</span> Ask Nica AI
+              <span style={{ fontSize: 11 }}>✦</span> Ask Nyla AI
             </button>
           </div>
         )}
       </header>
 
-      {/* ── HERO ────────────────────────────────────────────────────────────── */}
+      {/* ── HERO ── */}
       <section
         id="home"
         className="relative z-10 min-h-screen flex flex-col justify-center px-5 pt-28 pb-20 max-w-5xl mx-auto"
       >
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-12">
-          {/* Left — text */}
           <div className="flex-1">
             <p className="text-xs uppercase tracking-widest text-purple-400 mb-2 font-medium">
               Web Developer &amp; UI/UX Designer
@@ -325,7 +307,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right — Nica AI card */}
+          {/* Nyla AI card */}
           <div
             className="relative overflow-hidden rounded-2xl p-6 flex flex-col z-0 items-center justify-center gap-3 md:w-72 flex-shrink-0"
             style={{
@@ -334,21 +316,11 @@ export default function Home() {
               minHeight: 160,
             }}
           >
-            <div
-              className="absolute inset-0"
-              style={{ background: "radial-gradient(ellipse at top left,rgba(124,58,237,.15),transparent 60%)" }}
-            />
+            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at top left,rgba(124,58,237,.15),transparent 60%)" }} />
             <div className="relative z-10 flex flex-col items-center gap-2">
-              <span
-                className="text-4xl font-black text-purple-300"
-                style={{ fontFamily: "serif", letterSpacing: "-0.05em" }}
-              >
-                n
-              </span>
-              <p className="text-xs text-white/45">Ask Nica AI</p>
-              <p className="text-center text-sm font-semibold text-white/75">
-                Nica AI, is not yet available
-              </p>
+              <span className="text-4xl font-black text-purple-300" style={{ fontFamily: "serif", letterSpacing: "-0.05em" }}>n</span>
+              <p className="text-xs text-white/45">Ask Nyla AI</p>
+              <p className="text-center text-sm font-semibold text-white/75">Nyla AI, is not yet available</p>
               <button
                 onClick={() => setShowChatbot((p) => !p)}
                 className="mt-1 text-xs px-4 py-1.5 rounded-full font-medium hover:opacity-90 transition-all"
@@ -360,7 +332,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* About snippet under hero */}
+        {/* About snippet */}
         <div className="mt-16 max-w-2xl" id="about">
           <h2 className="text-2xl font-bold mb-1">My Name is Jay Harold Mars Abejar</h2>
           <p className="text-sm text-purple-300 mb-4">
@@ -375,7 +347,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── EXPERIENCE ──────────────────────────────────────────────────────── */}
+      {/* ── EXPERIENCE ── */}
       <section id="experience" className="relative z-10 px-5 py-24 max-w-5xl mx-auto">
         <SectionHeading sub="Technologies & tools I work with">My Experience</SectionHeading>
         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-7 gap-3">
@@ -401,22 +373,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── PROJECTS ────────────────────────────────────────────────────────── */}
+      {/* ── PROJECTS ── */}
       <section id="projects" className="relative z-10 px-5 py-24 max-w-5xl mx-auto">
         <SectionHeading sub="Things I've built and am working on">My Projects</SectionHeading>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          {/* PET-LOCATION — your capstone */}
+
+          {/* PET-LOCATION */}
           <FadeIn delay={0}>
             <div
               className="relative overflow-hidden rounded-2xl p-6 flex flex-col gap-3 h-56 group cursor-default transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              style={{
-                background: "linear-gradient(135deg,rgba(180,83,9,.45) 0%,rgba(120,53,15,.30) 100%)",
-                border: "1px solid rgba(255,255,255,.08)",
-              }}
+              style={{ background: "linear-gradient(135deg,rgba(180,83,9,.45) 0%,rgba(120,53,15,.30) 100%)", border: "1px solid rgba(255,255,255,.08)" }}
             >
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{ background: "radial-gradient(ellipse at top left,rgba(251,146,60,.2),transparent 60%)" }} />
-              {/* Use your Pet asset */}
               <div className="w-12 h-12 rounded-xl overflow-hidden flex items-center justify-center relative z-10"
                 style={{ background: "rgba(255,255,255,.08)" }}>
                 <img src={Pet} alt="PET-LOCATION" className="w-9 h-9 object-contain" />
@@ -433,14 +402,11 @@ export default function Home() {
             </div>
           </FadeIn>
 
-          {/* PORTFOLIO SITE */}
+          {/* RCJCIM */}
           <FadeIn delay={100}>
             <div
               className="relative overflow-hidden rounded-2xl p-6 flex flex-col gap-3 h-56 group cursor-default transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              style={{
-                background: "linear-gradient(135deg,rgba(30,64,175,.45) 0%,rgba(14,116,144,.30) 100%)",
-                border: "1px solid rgba(255,255,255,.08)",
-              }}
+              style={{ background: "linear-gradient(135deg,rgba(30,64,175,.45) 0%,rgba(14,116,144,.30) 100%)", border: "1px solid rgba(255,255,255,.08)" }}
             >
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{ background: "radial-gradient(ellipse at top left,rgba(56,189,248,.2),transparent 60%)" }} />
@@ -449,10 +415,10 @@ export default function Home() {
                 <img src={Logo} alt="Portfolio" className="w-9 h-9 object-contain" />
               </div>
               <div className="relative z-10">
-                <span className="text-xs font-semibold text-white/40 uppercase tracking-widest">React · Design</span>
-                <h3 className="text-lg font-bold text-white/95 mt-0.5">Portfolio Site</h3>
+                <span className="text-xs font-semibold text-white/40 uppercase tracking-widest">React · Design · Web Developer</span>
+                <h3 className="text-lg font-bold text-white/95 mt-0.5">RCJCIM</h3>
                 <p className="text-sm text-white/55 leading-relaxed mt-1">
-                  My personal website & portfolio built with React and Tailwind CSS to showcase my work and journey.
+                  My Freelance Experience using JavaScript · React · HTML · Tailwind CSS
                 </p>
               </div>
               <div className="absolute bottom-0 right-0 w-24 h-24 rounded-full opacity-10 group-hover:opacity-20 transition-opacity"
@@ -460,14 +426,11 @@ export default function Home() {
             </div>
           </FadeIn>
 
-          {/* NYLA AI */}
+          {/* NYIA AI */}
           <FadeIn delay={200}>
             <div
               className="relative overflow-hidden rounded-2xl p-6 flex flex-col gap-3 h-56 group cursor-default transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              style={{
-                background: "linear-gradient(135deg,rgba(109,40,217,.45) 0%,rgba(157,23,77,.30) 100%)",
-                border: "1px solid rgba(255,255,255,.08)",
-              }}
+              style={{ background: "linear-gradient(135deg,rgba(109,40,217,.45) 0%,rgba(157,23,77,.30) 100%)", border: "1px solid rgba(255,255,255,.08)" }}
             >
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{ background: "radial-gradient(ellipse at top left,rgba(168,85,247,.2),transparent 60%)" }} />
@@ -486,10 +449,11 @@ export default function Home() {
                 style={{ background: "white", filter: "blur(30px)", transform: "translate(30%,30%)" }} />
             </div>
           </FadeIn>
+
         </div>
       </section>
 
-      {/* ── SERVICES ────────────────────────────────────────────────────────── */}
+      {/* ── SERVICES ── */}
       <section id="services" className="relative z-10 px-5 py-24 max-w-5xl mx-auto">
         <SectionHeading sub="What I can do for you">Services</SectionHeading>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
@@ -508,70 +472,90 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── CONTACT ─────────────────────────────────────────────────────────── */}
-      <section id="contact" className="relative z-10 px-5 py-24 max-w-5xl mx-auto">
+      {/* ── CONTACT ── */}
+      <section id="contact" className="relative z-10 px-4 sm:px-5 py-16 sm:py-24 max-w-5xl mx-auto">
         <SectionHeading sub="Let's work together">Contact</SectionHeading>
         <FadeIn delay={100}>
           <div
-            className="rounded-2xl p-8 flex flex-col sm:flex-row gap-10"
+            className="rounded-2xl p-5 sm:p-8 flex flex-col sm:flex-row gap-8 sm:gap-10"
             style={{ background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.07)" }}
           >
-            <div className="flex flex-col gap-4 flex-1">
+            {/* Contact details */}
+            <div className="flex flex-col gap-4 sm:flex-1">
+              <p className="text-xs uppercase tracking-widest text-white/30 font-medium">Reach me at</p>
               {[
-                { icon: "📞", label: "+63 98978787998" },
-                { icon: "✉️", label: "jaja@gmail.com" },
-                { icon: "🔵", label: "fb jaja" },
-                { icon: "📷", label: "ig hasjask" },
+                { icon: "📞", label: "+63 9273865959",           href: "tel:+639273865959" },
+                { icon: "✉️", label: "abejar199@gmail.com",       href: "mailto:abejar199@gmail.com" },
+                { icon: "🔵", label: "fb Jay Harold Mars Abejar", href: "https://facebook.com" },
+                { icon: "📷", label: "ig @jayyhrold",             href: "https://instagram.com/jayyhrold" },
               ].map((c) => (
-                <div key={c.label} className="flex items-center gap-3 group cursor-pointer">
-                  <span className="text-lg">{c.icon}</span>
-                  <span className="text-sm text-white/65 group-hover:text-white transition-colors">{c.label}</span>
-                </div>
+                <a
+                  key={c.label}
+                  href={c.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-3 group no-underline"
+                >
+                  <span
+                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-base transition-all duration-200 group-hover:scale-110"
+                    style={{ background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.08)" }}
+                  >
+                    {c.icon}
+                  </span>
+                  <span className="text-sm text-white/60 group-hover:text-white transition-colors duration-200 break-all sm:break-normal">
+                    {c.label}
+                  </span>
+                </a>
               ))}
             </div>
-            <div className="flex-1 flex flex-col gap-3">
+
+            {/* Divider — horizontal on mobile, vertical on desktop */}
+            <div className="block sm:hidden h-px w-full" style={{ background: "rgba(255,255,255,.07)" }} />
+            <div className="hidden sm:block w-px self-stretch" style={{ background: "rgba(255,255,255,.07)" }} />
+
+            {/* CTA */}
+            <div className="sm:flex-1 flex flex-col gap-4 justify-center">
+              <h3 className="text-base font-bold text-white/85">Let's work together</h3>
               <p className="text-sm text-white/50 leading-relaxed">
-                Have a project in mind or want to collaborate? I'm open to freelance work, collaborations, and new opportunities. Let's build something great together!
+                Have a project in mind or want to collaborate? I'm open to freelance work,
+                collaborations, and new opportunities. Let's build something great together!
               </p>
-              <button
-                className="mt-2 self-start px-5 py-2.5 rounded-full text-sm font-semibold text-white hover:opacity-90 transition-all duration-200"
+              <a
+                href="mailto:abejar199@gmail.com"
+                className="mt-1 w-full sm:w-auto text-center sm:self-start px-5 py-3 rounded-full text-sm font-semibold text-white hover:opacity-90 active:scale-95 transition-all duration-200 no-underline"
                 style={{ background: "linear-gradient(135deg,#7c3aed,#ec4899)" }}
               >
                 Say Hello 👋
-              </button>
+              </a>
             </div>
           </div>
         </FadeIn>
       </section>
 
-      {/* ── FOOTER ──────────────────────────────────────────────────────────── */}
+      {/* ── FOOTER ── */}
       <footer className="relative z-10 px-5 py-8 text-center border-t border-white/5">
-        <p className="text-xs text-white/25">© 2026 Jay Harold Mars V. Abejar · Built with React & Tailwind CSS</p>
+        <p className="text-xs text-white/25">© 2025 updated 2026 Jay Harold Mars V. Abejar · Built with React & Tailwind CSS</p>
       </footer>
 
-      {/* ── CHATBOT TOGGLE BUTTON ────────────────────────────────────────────── */}
-      <div className={`container ${showChatbot ? "show-chatbot" : ""}`}>
+      {/* ── CHATBOT ── */}
+      <div className={`z-50 container ${showChatbot ? "show-chatbot" : ""}`}>
         <button
           id="chatbot-toggler"
           onClick={() => setShowChatbot((p) => !p)}
-          className="fixed bottom-6 Z-10 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110"
+          className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110"
           style={{ background: "linear-gradient(135deg,#7c3aed,#ec4899)", boxShadow: "0 8px 28px rgba(124,58,237,.5)" }}
         >
           <span className="material-symbols-rounded" style={{ color: "#fff" }}>mode_comment</span>
           <span className="material-symbols-rounded" style={{ color: "#fff" }}>close</span>
         </button>
 
-        {/* ── CHATBOT POPUP ──────────────────────────────────────────────────── */}
-        <div className="chatbot-popup Z-50">
+        <div className="chatbot-popup">
           <div className="chat-header" style={{ background: "linear-gradient(135deg,rgba(124,58,237,.5),rgba(236,72,153,.3))", borderBottom: "1px solid rgba(255,255,255,.08)" }}>
             <div className="header-info">
               <ChatbotIcon />
               <h2 className="logo-text">JayHarold_Bot</h2>
             </div>
-            <button
-              className="material-symbols-rounded"
-              onClick={() => setShowChatbot(false)}
-            >
+            <button className="material-symbols-rounded" onClick={() => setShowChatbot(false)}>
               keyboard_arrow_down
             </button>
           </div>
@@ -595,6 +579,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+
     </div>
   );
 }
