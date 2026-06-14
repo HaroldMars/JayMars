@@ -46,6 +46,7 @@ const STOCK_DB = {
   },
 };
 
+
 const RANGES = ["1D", "1W", "1M", "3M", "6M", "YTD", "1Y", "2Y", "5Y", "10Y", "ALL"];
 
 function CustomTooltip({ active, payload, label }) {
