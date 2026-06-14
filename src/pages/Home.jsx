@@ -447,7 +447,7 @@ export default function Home() {
                 style={{ background: "radial-gradient(ellipse at top left,rgba(168,85,247,.2),transparent 60%)" }} />
               <div className="w-12 h-12 rounded-xl flex items-center justify-center relative z-10 text-2xl"
                 style={{ background: "rgba(255,255,255,.08)" }}>
-                🤖
+                Ãɪ
               </div>
               <div className="relative z-10">
                 <span className="text-xs font-semibold text-white/40 uppercase tracking-widest">AI · In Progress</span>
@@ -495,10 +495,14 @@ export default function Home() {
             <div className="flex flex-col gap-4 sm:flex-1">
               <p className="text-xs uppercase tracking-widest text-white/30 font-medium">Reach me at</p>
               {[
+                
+                // ✉️
+                // 🔵
+                // 📷
                 { icon: "📞", label: "+63 9273865959",           href: "tel:+639273865959" },
-                { icon: "✉️", label: "abejar199@gmail.com",       href: "mailto:abejar199@gmail.com" },
-                { icon: "🔵", label: "fb Jay Harold Mars Abejar", href: "https://facebook.com" },
-                { icon: "📷", label: "ig @jayyhrold",             href: "https://instagram.com/jayyhrold" },
+                { icon: "", label: "abejar199@gmail.com",       href: "mailto:abejar199@gmail.com" },
+                { icon: "", label: "fb Jay Harold Mars Abejar", href: "https://facebook.com" },
+                { icon: "", label: "ig @jayyhrold",             href: "https://instagram.com/jayyhrold" },
               ].map((c) => (
                 <a
                   key={c.label}

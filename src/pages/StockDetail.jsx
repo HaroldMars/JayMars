@@ -4,7 +4,6 @@ import {
   AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine,
 } from "recharts";
 
-// ── Mock data per range ───────────────────────────────────────────────────────
 function generateData(range, basePrice, isDown) {
   const points = { "1D": 48, "1W": 35, "1M": 30, "3M": 90, "6M": 60, "1Y": 52, "2Y": 50, "5Y": 60, "10Y": 60, ALL: 60 };
   const n = points[range] || 48;
@@ -49,7 +48,6 @@ const STOCK_DB = {
 
 const RANGES = ["1D", "1W", "1M", "3M", "6M", "YTD", "1Y", "2Y", "5Y", "10Y", "ALL"];
 
-// ── Custom tooltip ────────────────────────────────────────────────────────────
 function CustomTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null;
   return (
@@ -125,8 +123,6 @@ export default function StockDetail() {
             </div>
             <p className="text-sm text-white/35">{stock.exchange}</p>
           </div>
-
-          {/* Price block */}
           <div className="text-right">
             <div className="flex items-baseline gap-4 justify-end flex-wrap">
               <div>
@@ -226,12 +222,11 @@ export default function StockDetail() {
       </div>
 
       {/* ── STATS GRID ── */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 mt-6 mb-10">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 mt-6 mb-6">
         <div
           className="rounded-2xl overflow-hidden"
           style={{ border: "1px solid rgba(255,255,255,.07)" }}
         >
-          {/* Grid — 4 columns on desktop, 2 on mobile */}
           <div className="grid grid-cols-2 sm:grid-cols-4">
             {STATS.map((s, i) => (
               <div
@@ -250,6 +245,32 @@ export default function StockDetail() {
           </div>
         </div>
       </div>
+
+      {/* ── INVEST CTA ── */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 mb-10">
+        <div
+          className="rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4"
+          style={{
+            background: "linear-gradient(135deg,rgba(124,58,237,.15) 0%,rgba(236,72,153,.10) 100%)",
+            border: "1px solid rgba(124,58,237,.25)",
+          }}
+        >
+          <div>
+            <p className="text-base font-bold text-white/90">Interested in investing?</p>
+            <p className="text-sm text-white/45 mt-0.5">
+              If you want to invest, contact me and let's talk about it.
+            </p>
+          </div>
+          <a
+            href="mailto:abejar199@gmail.com"
+            className="flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-semibold text-white hover:opacity-90 active:scale-95 transition-all duration-200"
+            style={{ background: "linear-gradient(135deg,#7c3aed,#ec4899)" }}
+          >
+            Contact Me 📩
+          </a>
+        </div>
+      </div>
+
     </div>
   );
 }
