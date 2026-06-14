@@ -6,6 +6,7 @@ import ChatbotIcon from "../components/ChatbotIcon";
 import ChatForm from "../components/ChatForm";
 import { config } from "../utils/config";
 import Jay from "../assets/Mypic.jpg";
+import { useNavigate } from "react-router-dom";
 
 const NAV_LINKS = ["home", "about", "projects", "services", "contact"];
 
@@ -62,6 +63,8 @@ function FadeIn({ children, delay = 0, className = "" }) {
     </div>
   );
 }
+
+
 
 function SectionHeading({ children, sub }) {
   return (
@@ -129,6 +132,7 @@ export default function Home() {
   const [showChatbot, setShowChatbot]  = useState(false);
   const [menuOpen,    setMenuOpen]     = useState(false);
   const [scrolled,    setScrolled]     = useState(false);
+  const navigate = useNavigate();
 
   const generateBotResponse = async (history) => {
     history = history.map(({ role, text }) => ({ role, parts: [{ text }] }));
@@ -304,6 +308,13 @@ export default function Home() {
               >
                 Experience
               </button>
+              <button
+  onClick={() => navigate("/stocks")}
+  className="px-5 py-2.5 rounded-full text-sm font-semibold text-white hover:opacity-90 transition-all duration-200"
+  style={{ background: "linear-gradient(135deg,#7c3aed,#6366f1)" }}
+>
+  My Stocks
+</button>
             </div>
           </div>
 
