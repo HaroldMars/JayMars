@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 const STOCKS = [
   {
-    ticker: "ILLP PH",
-    name: "Iluminary Peak PH",
+    ticker: "ILLP",
+    name: "Iluminary Peak",
     badge: "PH",
     price: 0.001,
-    change: -1.203,
+    change: 0.012,
   },
 ];
 

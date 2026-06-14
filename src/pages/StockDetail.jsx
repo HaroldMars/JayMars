@@ -24,13 +24,13 @@ function generateData(range, basePrice, isDown) {
 const STOCK_DB = {
   "ILLP PH": {
     ticker: "ILLP PH",
-    name: "Iluminary Peak PH",
+    name: "Iluminary Peak",
     exchange: "PSE · PHP",
     badge: "PH",
     price: 0.001,
     afterHoursPrice: 0.001,
     afterHoursChange: 0.000,
-    change: -1.203,
+    change: 0.012,
     open: 0.00102,
     high: 0.00105,
     low: 0.00098,
