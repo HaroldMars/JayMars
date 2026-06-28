@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import Logo from "../assets/logo.png";
 import Pet from "../assets/logodog.png";
+import Nyla from "../assets/NylaLogo.png";
+import WEYAPP from "../assets/WEYAPP.png";
 import ChatMessage from "../components/ChatMessage";
 import ChatbotIcon from "../components/ChatbotIcon";
 import ChatForm from "../components/ChatForm";
@@ -17,7 +19,6 @@ const TECH_STACK = [
   { name: "Python",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
   { name: "C++",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
   { name: "Figma",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
-    // { name: "Tailwind",   icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" },
   { name: "React",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
   { name: "MongoDB",    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
   { name: "GitHub",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
@@ -63,8 +64,6 @@ function FadeIn({ children, delay = 0, className = "" }) {
     </div>
   );
 }
-
-
 
 function SectionHeading({ children, sub }) {
   return (
@@ -219,6 +218,12 @@ export default function Home() {
               </button>
             ))}
             <button
+              onClick={() => navigate("/tutorials")}
+              className="text-sm text-white/55 hover:text-white transition-colors duration-200"
+            >
+              Tutorials
+            </button>
+            <button
               onClick={() => setShowChatbot((p) => !p)}
               className="flex items-center gap-1.5 text-sm px-4 py-1.5 rounded-full font-medium transition-all hover:opacity-90"
               style={{ background: "linear-gradient(135deg,#7c3aed,#ec4899)" }}
@@ -260,6 +265,12 @@ export default function Home() {
                 {id}
               </button>
             ))}
+            <button
+              onClick={() => { navigate("/tutorials"); setMenuOpen(false); }}
+              className="text-left text-sm text-white/65 py-2.5 border-b border-white/5 hover:text-white transition-colors"
+            >
+              Tutorials
+            </button>
             <button
               onClick={() => { setShowChatbot((p) => !p); setMenuOpen(false); }}
               className="mt-3 self-start flex items-center gap-1.5 text-sm px-4 py-2 rounded-full font-medium"
@@ -309,18 +320,25 @@ export default function Home() {
                 Experience
               </button>
               <button
-  onClick={() => navigate("/stocks")}
-  className="px-5 py-2.5 rounded-full text-sm font-semibold text-white hover:opacity-90 transition-all duration-200"
-  style={{ background: "linear-gradient(135deg,#7c3aed,#6366f1)" }}
->
-  My Stocks
-</button>
+                onClick={() => navigate("/stocks")}
+                className="px-5 py-2.5 rounded-full text-sm font-semibold text-white hover:opacity-90 transition-all duration-200"
+                style={{ background: "linear-gradient(135deg,#059669,#0891b2)" }}
+              >
+                My Stocks 📈
+              </button>
+              <button
+                onClick={() => navigate("/tutorials")}
+                className="px-5 py-2.5 rounded-full text-sm font-semibold text-white hover:opacity-90 transition-all duration-200"
+                style={{ background: "linear-gradient(135deg,#ec4899,#f59e0b)" }}
+              >
+                Tutorials 📚
+              </button>
             </div>
           </div>
 
           {/* Nyla AI card */}
           <div
-            className="relative overflow-hidden rounded-2xl p-6 flex flex-col z-0 items-center justify-center gap-3 md:w-72 flex-shrink-0"
+            className="relative overflow-hidden rounded-2xl p-6 flex flex-col z-0 items-center justify-center gap-3 w-full md:w-72 flex-shrink-0"
             style={{
               background: "linear-gradient(135deg,rgba(124,58,237,.22) 0%,rgba(236,72,153,.12) 100%)",
               border: "1px solid rgba(124,58,237,.30)",
@@ -382,12 +400,32 @@ export default function Home() {
             </FadeIn>
           ))}
         </div>
+
+        {/* WEYAPP highlight */}
+        <FadeIn delay={200}>
+          <div
+            className="mt-6 rounded-2xl p-5 sm:p-6 flex items-center gap-4"
+            style={{ background: "linear-gradient(135deg,rgba(124,58,237,.18),rgba(217,70,239,.10))", border: "1px solid rgba(124,58,237,.25)" }}
+          >
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl"
+              style={{ background: "rgba(255,255,255,.08)" }}>
+              <img src={WEYAPP} alt="PET-LOCATION" className="w-9 h-9 object-contain" />
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-purple-300 uppercase tracking-widest">Featured · Chat System</p>
+              <h3 className="text-lg font-bold text-white/95">WEYAPP!</h3>
+              <p className="text-sm text-white/55 leading-relaxed">
+                A real-time chat application I built — a full messaging system with live message sync between users.
+              </p>
+            </div>
+          </div>
+        </FadeIn>
       </section>
 
       {/* ── PROJECTS ── */}
       <section id="projects" className="relative z-10 px-5 py-24 max-w-5xl mx-auto">
         <SectionHeading sub="Things I've built and am working on">My Projects</SectionHeading>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
 
           {/* PET-LOCATION */}
           <FadeIn delay={0}>
@@ -437,8 +475,33 @@ export default function Home() {
             </div>
           </FadeIn>
 
-          {/* NYIA AI */}
+          {/* WEYAPP */}
           <FadeIn delay={200}>
+            <div
+              className="relative overflow-hidden rounded-2xl p-6 flex flex-col gap-3 h-56 group cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              style={{ background: "linear-gradient(135deg,rgba(124,58,237,.45) 0%,rgba(217,70,239,.30) 100%)", border: "1px solid rgba(255,255,255,.08)" }}
+              onClick={() => navigate("/tutorials")}
+            >
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: "radial-gradient(ellipse at top left,rgba(168,85,247,.25),transparent 60%)" }} />
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center relative z-10 text-2xl"
+                style={{ background: "rgba(255,255,255,.08)" }}>
+                <img src={WEYAPP} alt="PET-LOCATION" className="w-9 h-9 object-contain" />
+              </div>
+              <div className="relative z-10">
+                <span className="text-xs font-semibold text-white/40 uppercase tracking-widest">Chat System · React</span>
+                <h3 className="text-lg font-bold text-white/95 mt-0.5">WEYAPP!</h3>
+                <p className="text-sm text-white/55 leading-relaxed mt-1">
+                  A real-time chat application — full messaging system with live sync. Tap to see the tutorial.
+                </p>
+              </div>
+              <div className="absolute bottom-0 right-0 w-24 h-24 rounded-full opacity-10 group-hover:opacity-20 transition-opacity"
+                style={{ background: "white", filter: "blur(30px)", transform: "translate(30%,30%)" }} />
+            </div>
+          </FadeIn>
+
+          {/* NYIA AI */}
+          <FadeIn delay={300}>
             <div
               className="relative overflow-hidden rounded-2xl p-6 flex flex-col gap-3 h-56 group cursor-default transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               style={{ background: "linear-gradient(135deg,rgba(109,40,217,.45) 0%,rgba(157,23,77,.30) 100%)", border: "1px solid rgba(255,255,255,.08)" }}
@@ -447,7 +510,7 @@ export default function Home() {
                 style={{ background: "radial-gradient(ellipse at top left,rgba(168,85,247,.2),transparent 60%)" }} />
               <div className="w-12 h-12 rounded-xl flex items-center justify-center relative z-10 text-2xl"
                 style={{ background: "rgba(255,255,255,.08)" }}>
-                Ãɪ
+                <img src={Nyla} alt="PET-LOCATION" className="w-9 h-9 object-contain" />
               </div>
               <div className="relative z-10">
                 <span className="text-xs font-semibold text-white/40 uppercase tracking-widest">AI · In Progress</span>
@@ -488,43 +551,45 @@ export default function Home() {
         <SectionHeading sub="Let's work together">Contact</SectionHeading>
         <FadeIn delay={100}>
           <div
-            className="rounded-2xl p-5 sm:p-8 flex flex-col sm:flex-row gap-8 sm:gap-10"
+            className="rounded-2xl p-5 sm:p-8 flex flex-col sm:flex-row gap-6 sm:gap-10"
             style={{ background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.07)" }}
           >
             {/* Contact details */}
-            <div className="flex flex-col gap-4 sm:flex-1">
-              <p className="text-xs uppercase tracking-widest text-white/30 font-medium">Reach me at</p>
-              {[
-                
-                // ✉️
-                // 🔵
-                // 📷
-                { icon: "📞", label: "+63 9273865959",           href: "tel:+639273865959" },
-                { icon: "", label: "abejar199@gmail.com",       href: "mailto:abejar199@gmail.com" },
-                { icon: "", label: "fb Jay Harold Mars Abejar", href: "https://facebook.com" },
-                { icon: "", label: "ig @jayyhrold",             href: "https://instagram.com/jayyhrold" },
-              ].map((c) => (
-                <a
-                  key={c.label}
-                  href={c.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-3 group no-underline"
-                >
-                  <span
-                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-base transition-all duration-200 group-hover:scale-110"
-                    style={{ background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.08)" }}
+            <div className="flex flex-col gap-3 sm:flex-1">
+              <p className="text-xs uppercase tracking-widest text-white/30 font-medium mb-1">Reach me at</p>
+              <div className="grid grid-cols-2 sm:grid-cols-1 gap-3">
+                {[
+                  { isImg: false, emoji: "📞", label: "+63 9273865959", href: "tel:+639273865959" },
+                  { isImg: true, icon: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg", label: "abejar199@gmail.com", href: "mailto:abejar199@gmail.com" },
+                  { isImg: true, icon: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg", label: "fb Jay Harold Mars Abejar", href: "https://facebook.com" },
+                  { isImg: true, icon: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png", label: "ig @jayyhrold", href: "https://instagram.com/jayyhrold" },
+                ].map((c) => (
+                  <a
+                    key={c.label}
+                    href={c.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 sm:gap-3 group no-underline p-2 rounded-xl transition-all duration-200"
+                    style={{ background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.06)" }}
                   >
-                    {c.icon}
-                  </span>
-                  <span className="text-sm text-white/60 group-hover:text-white transition-colors duration-200 break-all sm:break-normal">
-                    {c.label}
-                  </span>
-                </a>
-              ))}
+                    <span
+                      className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-sm sm:text-base transition-all duration-200 group-hover:scale-110 overflow-hidden"
+                      style={{ background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.08)" }}
+                    >
+                      {c.isImg ? (
+                        <img src={c.icon} alt={c.label} className="w-4 h-4 sm:w-5 sm:h-5 object-contain rounded-sm" />
+                      ) : (
+                        <span>{c.emoji}</span>
+                      )}
+                    </span>
+                    <span className="text-xs sm:text-sm text-white/60 group-hover:text-white transition-colors duration-200 truncate">
+                      {c.label}
+                    </span>
+                  </a>
+                ))}
+              </div>
             </div>
 
-            {/* Divider — horizontal on mobile, vertical on desktop */}
             <div className="block sm:hidden h-px w-full" style={{ background: "rgba(255,255,255,.07)" }} />
             <div className="hidden sm:block w-px self-stretch" style={{ background: "rgba(255,255,255,.07)" }} />
 
