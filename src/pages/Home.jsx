@@ -1,26 +1,141 @@
-import React, { useState, useEffect } from "react";
-import Logo from "../assets/logo.png"; // Removed trailing slash
-import Pet from "../assets/logodog.png"; // Removed trailing slash
-import bus from "../assets/bus.png";
+import React, { useState, useEffect, useRef } from "react";
+import Logo from "../assets/logo.png";
+import Pet from "../assets/logodog.png";
+import Nyla from "../assets/NylaLogo.png";
+import WEYAPP from "../assets/WEYAPP.png";
 import ChatMessage from "../components/ChatMessage";
 import ChatbotIcon from "../components/ChatbotIcon";
 import ChatForm from "../components/ChatForm";
 import Jaybot from "../components/Jaybot";
 import { config } from "../utils/config";
+import Jay from "../assets/Mypic.jpg";
+import { useNavigate } from "react-router-dom";
+
+const NAV_LINKS = ["home", "about", "projects", "services", "contact"];
+
+const TECH_STACK = [
+  { name: "HTML5",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+  { name: "CSS3",       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
+  { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+  { name: "Python",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { name: "C++",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
+  { name: "Figma",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+  { name: "React",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "MongoDB",    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+  { name: "GitHub",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+  { name: "VS Code",    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
+  { name: "Arduino",    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg" },
+  { name: "Vite",       icon: "https://vitejs.dev/logo.svg" },
+  { name: "Vercel",     icon: "https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png" },
+];
+
+const SERVICES = [
+  { icon: "💻", title: "Web Development",  desc: "Building modern, responsive web apps using React, Tailwind CSS, and JavaScript." },
+  { icon: "🎨", title: "UI/UX Design",     desc: "Crafting clean, user-friendly interfaces with Figma that balance aesthetics and usability." },
+  { icon: "🤖", title: "AI Integration",   desc: "Integrating AI tools and building smart features into web applications." },
+];
+
+function useInView(threshold = 0.12) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setInView(true); },
+      { threshold }
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return [ref, inView];
+}
+
+function FadeIn({ children, delay = 0, className = "" }) {
+  const [ref, inView] = useInView();
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: inView ? 1 : 0,
+        transform: inView ? "translateY(0)" : "translateY(26px)",
+        transition: `opacity .65s ease ${delay}ms, transform .65s ease ${delay}ms`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function SectionHeading({ children, sub }) {
+  return (
+    <FadeIn>
+      <h2
+        className="text-3xl font-black mb-1"
+        style={{
+          background: "linear-gradient(90deg,#fff 40%,#a78bfa 100%)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
+      >
+        {children}
+      </h2>
+      <div className="w-10 h-0.5 mt-2 mb-2 rounded-full" style={{ background: "linear-gradient(90deg,#7c3aed,#ec4899)" }} />
+      {sub && <p className="text-sm text-white/40 mt-1 mb-8">{sub}</p>}
+    </FadeIn>
+  );
+}
+
+function Particles() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const container = ref.current;
+    if (!container) return;
+    const particles = [];
+    for (let i = 0; i < 45; i++) {
+      const size = Math.random() * 5 + 2;
+      const el = document.createElement("div");
+      Object.assign(el.style, {
+        position: "absolute",
+        width: size + "px",
+        height: size + "px",
+        borderRadius: "50%",
+        background: `rgba(${Math.random() > 0.5 ? "139,92,246" : "59,130,246"},${(Math.random() * 0.3 + 0.05).toFixed(2)})`,
+        top: Math.random() * 100 + "%",
+        left: Math.random() * 100 + "%",
+        pointerEvents: "none",
+      });
+      const drift = (Math.random() - 0.5) * 120;
+      const anim = el.animate(
+        [
+          { transform: "translateY(0) translateX(0)", opacity: 0 },
+          { opacity: 0.7, offset: 0.1 },
+          { opacity: 0.4, offset: 0.9 },
+          { transform: `translateY(-100vh) translateX(${drift}px)`, opacity: 0 },
+        ],
+        {
+          duration: 18000 + Math.random() * 12000,
+          iterations: Infinity,
+          easing: "linear",
+          delay: Math.random() * 15000,
+        }
+      );
+      particles.push({ el, anim });
+      container.appendChild(el);
+    }
+    return () => particles.forEach(({ el, anim }) => { anim.cancel(); el.remove(); });
+  }, []);
+  return <div ref={ref} className="fixed inset-0 pointer-events-none overflow-hidden z-0" />;
+}
 
 export default function Home() {
-   const [chatHistory, setChatHistory] = useState([]);
-   const [showChatbot, setShowChatbot] = useState(false);
-  // const [isExpanded, setIsExpanded] = useState(false);
-
-  // const handleToggle = () => {
-  //   setIsExpanded((prev) => !prev);
-  // };
-
+  const [chatHistory, setChatHistory] = useState([]);
+  const [showChatbot, setShowChatbot]  = useState(false);
+  const [menuOpen,    setMenuOpen]     = useState(false);
+  const [scrolled,    setScrolled]     = useState(false);
+  const navigate = useNavigate();
 
   const generateBotResponse = async (history) => {
     history = history.map(({ role, text }) => ({ role, parts: [{ text }] }));
-
     const requestOptions = {
       method: "POST",
       headers: {
@@ -29,16 +144,13 @@ export default function Home() {
       },
       body: JSON.stringify({ contents: history }),
     };
-
     try {
       const response = await fetch(config.Gemini_ApiUrl, requestOptions);
       const data = await response.json();
-      if (!response.ok)
-        throw new Error(data.error.message || "Something went wrong!");
-
+      if (!response.ok) throw new Error(data.error.message || "Something went wrong!");
       data.candidates.forEach((candidate) => {
-        setChatHistory((history) => [
-          ...history.filter((msg) => msg.text !== "Thinking..."),
+        setChatHistory((prev) => [
+          ...prev.filter((msg) => msg.text !== "Thinking..."),
           {
             role: "model",
             text: candidate.content.parts.map((part) => part.text).join(""),
@@ -50,293 +162,538 @@ export default function Home() {
     }
   };
 
-  // Generate particles on component mount
   useEffect(() => {
-    const container = document.getElementById("particles-container");
-    if (!container) return;
-
-    const particlesCount = 50;
-    const particles = [];
-
-    for (let i = 0; i < particlesCount; i++) {
-      const size = Math.random() * 8 + 2; // 2px to 10px
-      const particle = document.createElement("div");
-      particle.className = "particle";
-      particle.style.width = size + "px";
-      particle.style.height = size + "px";
-
-      // Random initial position
-      particle.style.position = "absolute";
-      particle.style.top = Math.random() * 100 + "%";
-      particle.style.left = Math.random() * 100 + "%";
-
-      // Random animation delay
-      particle.style.animationDelay = Math.random() * 20 + "s";
-
-      // Animate with drift
-      const driftX = (Math.random() - 0.5) * 100; // -50 to +50 px
-      const animation = particle.animate(
-        [
-          { transform: `translateY(0) translateX(0)` },
-          { transform: `translateY(-100vh) translateX(${driftX}px)` },
-        ],
-        {
-          duration: 20000 + Math.random() * 10000, // 20-30 sec
-          iterations: Infinity,
-          easing: "linear",
-        },
-      );
-
-      // Save reference for cleanup if needed
-      particles.push({ element: particle, animation });
-      container.appendChild(particle);
-    }
-
-    // Optional cleanup on unmount
-    return () => {
-      particles.forEach(({ element, animation }) => {
-        animation.cancel();
-        if (element.parentNode) {
-          element.parentNode.removeChild(element);
-        }
-      });
-    };
+    const fn = () => setScrolled(window.scrollY > 30);
+    window.addEventListener("scroll", fn);
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  // removed manual DOM expansion logic; using React state instead
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setMenuOpen(false);
+  };
 
   return (
-    <>
-      {/* Immersive futuristic background */}
-      <div className="background"></div>
-      <div className="floating-shapes">
-        <div className="shape orb s1"></div>
-        <div className="shape s2"></div>
-        <div className="shape ring s3"></div>
-        <div className="shape orb s4"></div>
-        <div className="shape ring s5"></div>
+    <div
+      className="relative text-white font-sans overflow-x-hidden"
+      style={{ background: "linear-gradient(135deg,#0c0c14 0%,#12121e 50%,#0c0c18 100%)" }}
+    >
+      <Particles />
+
+      {/* Ambient glow blobs */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div style={{ position:"absolute", top:"6%",  left:"8%",  width:400, height:400, borderRadius:"50%", background:"radial-gradient(circle,rgba(124,58,237,.10),transparent 70%)", filter:"blur(50px)" }} />
+        <div style={{ position:"absolute", top:"55%", right:"4%", width:340, height:340, borderRadius:"50%", background:"radial-gradient(circle,rgba(59,130,246,.08),transparent 70%)",  filter:"blur(50px)" }} />
+        <div style={{ position:"absolute", bottom:"8%",left:"35%", width:300, height:300, borderRadius:"50%", background:"radial-gradient(circle,rgba(236,72,153,.07),transparent 70%)", filter:"blur(50px)" }} />
       </div>
-      <div className="bg-vignette"></div>
 
-      <div className="mx-auto rounded-lg w-full max-w-4xl h-auto p-4 sm:p-8">
+      {/* ── NAVBAR ── */}
+      <header
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        style={{
+          background:     scrolled ? "rgba(12,12,20,.90)" : "transparent",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
+          borderBottom:   scrolled ? "1px solid rgba(255,255,255,.06)" : "none",
+        }}
+      >
+        <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
+          <button onClick={() => scrollTo("home")} className="flex items-center gap-2.5 group">
+            <img
+              src={Jay}
+              alt="Jay Harold"
+              className="w-8 h-8 rounded-full object-cover border border-white/20 group-hover:border-purple-400/60 transition-colors"
+            />
+            <span className="font-bold text-sm text-white/80 group-hover:text-white transition-colors hidden sm:block">
+              JayMars_Abejar
+            </span>
+          </button>
 
-        {/* Navigation */}
-        {/* <div>
-        <nav className="mynav">
-          <div className="navigation">
-            <img className="profile" src="https://scontent.fceb2-1.fna.fbcdn.net/v/t39.30808-6/527724206_1978165126305131_7263521750765554623_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFeKqtcWGp1rZpFLxK_H9KcTsBK9TbdY2JOwEr1Nt1jYlwHF8o0b3ozjsC3Pek219aEIYTySB529jo-gBwWkrW9&_nc_ohc=GbbBye5kUwsQ7kNvwHISCHe&_nc_oc=Adn-WKjLcungT8dKobjl_pzO3TXlowTw-NuSuOaq4oiicC6vUlTxBCtHCy9EunIBMjw&_nc_zt=23&_nc_ht=scontent.fceb2-1.fna&_nc_gid=HzpWvqJlWp9ttOdC071OjQ&oh=00_AflqloP4NJVYeUHpXKHN1JCR3JSjBRmoRyq7Wsr8V7ZITg&oe=693943CA" alt="" />
-          </div>
-          <h1 className="profile_name">Jay Harold Mars V. Abejar</h1>
-          <div className="menu flex gap-6 font-bold">
-          <div className="cursor-pointer">Home</div>
-          <a href="#about"><div className="cursor-pointer">About</div></a>
-          <a href="#projects"><div className="cursor-pointer">Projects</div></a>
-          <a href="#contact"><div className="cursor-pointer">Contact</div></a>
-          </div>
-        </nav>
-      </div> */}
-        <div>
-          <nav className="mynav">
-            <div className="nav-container">
-              <div className="profile-section">
-                <div>
-                  <img
-                    className="profile"
-                    src="https://scontent.fceb2-1.fna.fbcdn.net/v/t39.30808-1/527724206_1978165126305131_7263521750765554623_n.jpg?stp=cp6_dst-jpg_s320x320_tt6&_nc_cat=103&ccb=1-7&_nc_sid=1d2534&_nc_eui2=AeFeKqtcWGp1rZpFLxK_H9KcTsBK9TbdY2JOwEr1Nt1jYlwHF8o0b3ozjsC3Pek219aEIYTySB529jo-gBwWkrW9&_nc_ohc=tJEJwJYarpAQ7kNvwHdtDWR&_nc_oc=AdqNAtuJyChkdMvqoJq-4poRR_PuQoUvRvK5E9ZU7YfVSlVORwVko-fWyE1MjMEqqsg&_nc_zt=24&_nc_ht=scontent.fceb2-1.fna&_nc_gid=iWSIcihnOxZkFjp6ONbb2g&_nc_ss=7a3a8&oh=00_Af0A6a5WDOeYioi1Sks63_cDay0TGOHw7ELmsqHIEq4kjw&oe=69DA824C"
-                    alt=""
-                  />
-                </div>
-                <div className="hide-on-smallscreen">
-                  <p className="profile_name">Jay Harold Mars V. Abejar</p>
-                </div>
-              </div>
-              <div>
-                <a href="#home ">Home</a>
-              </div>
-              <div>
-                <a href="#about" className="cursor-pointer">
-                  About
-                </a>
-              </div>
-              <div>
-                <a href="#projects" className="cursor-pointer">
-                  Projects
-                </a>
-              </div>
-              <div>
-                <a href="#contact" className="cursor-pointer">
-                  Contact
-                </a>
-              </div>
-            </div>
+          <nav className="hidden md:flex items-center gap-6">
+            {NAV_LINKS.map((id) => (
+              <button
+                key={id}
+                onClick={() => scrollTo(id)}
+                className="text-sm capitalize text-white/55 hover:text-white transition-colors duration-200"
+              >
+                {id}
+              </button>
+            ))}
+            <button
+              onClick={() => navigate("/tutorials")}
+              className="text-sm text-white/55 hover:text-white transition-colors duration-200"
+            >
+              Tutorials
+            </button>
+            <button
+              onClick={() => setShowChatbot((p) => !p)}
+              className="flex items-center gap-1.5 text-sm px-4 py-1.5 rounded-full font-medium transition-all hover:opacity-90"
+              style={{ background: "linear-gradient(135deg,#7c3aed,#ec4899)" }}
+            >
+              <span style={{ fontSize: 11 }}>✦</span> Ask Nyla AI
+            </button>
           </nav>
+
+          <button
+            className="md:hidden text-white/70 hover:text-white transition-colors"
+            onClick={() => setMenuOpen((p) => !p)}
+          >
+            {menuOpen ? (
+              <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="4" y1="4" x2="18" y2="18"/>
+                <line x1="18" y1="4" x2="4" y2="18"/>
+              </svg>
+            ) : (
+              <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="3" y1="7"  x2="19" y2="7"/>
+                <line x1="3" y1="12" x2="19" y2="12"/>
+                <line x1="3" y1="17" x2="19" y2="17"/>
+              </svg>
+            )}
+          </button>
         </div>
 
-        {/* Particles container */}
-        <div id="particles-container"></div>
-
-        {/* ChatBot Section */}
-        <div className={`container ${showChatbot ? "show-chatbot" : ""}`}>
-          <button
-            onClick={() => setShowChatbot((prev) => !prev)}
-            id="chatbot-toggler"
+        {menuOpen && (
+          <div
+            className="md:hidden px-5 pb-4 flex flex-col gap-1"
+            style={{ background: "rgba(12,12,20,.97)", borderBottom: "1px solid rgba(255,255,255,.06)" }}
           >
-            <span className="material-symbols-rounded">mode_comment</span>
-            <span className="material-symbols-rounded">close</span>
-          </button>
-          <div className="chatbot-popup">
-            <div className="chat-header">
-              <div className="header-info">
-                <ChatbotIcon />
-                <h2 className="logo-text">Diosdado</h2>
-              </div>
-              <button className="material-symbols-rounded">
-                keyboard_arrow_down
+            {NAV_LINKS.map((id) => (
+              <button
+                key={id}
+                onClick={() => scrollTo(id)}
+                className="text-left text-sm capitalize text-white/65 py-2.5 border-b border-white/5 hover:text-white transition-colors"
+              >
+                {id}
+              </button>
+            ))}
+            <button
+              onClick={() => { navigate("/tutorials"); setMenuOpen(false); }}
+              className="text-left text-sm text-white/65 py-2.5 border-b border-white/5 hover:text-white transition-colors"
+            >
+              Tutorials
+            </button>
+            <button
+              onClick={() => { setShowChatbot((p) => !p); setMenuOpen(false); }}
+              className="mt-3 self-start flex items-center gap-1.5 text-sm px-4 py-2 rounded-full font-medium"
+              style={{ background: "linear-gradient(135deg,#7c3aed,#ec4899)" }}
+            >
+              <span style={{ fontSize: 11 }}>✦</span> Ask Nyla AI
+            </button>
+          </div>
+        )}
+      </header>
+
+      {/* ── HERO ── */}
+      <section
+        id="home"
+        className="relative z-10 min-h-screen flex flex-col justify-center px-5 pt-28 pb-20 max-w-5xl mx-auto"
+      >
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-12">
+          <div className="flex-1">
+            <p className="text-xs uppercase tracking-widest text-purple-400 mb-2 font-medium">
+              Web Developer &amp; UI/UX Designer
+            </p>
+            <p className="text-xs text-white/40 mb-1">Future Software Engineer and Entrepreneur</p>
+            <h1
+              className="font-extrabold leading-none mb-6"
+              style={{
+                fontSize: "clamp(2.6rem,7.5vw,5.2rem)",
+                letterSpacing: "-0.03em",
+                background: "linear-gradient(135deg,#fff 30%,#a78bfa 80%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Jay Harold<br />Mars Abejar
+            </h1>
+            <div className="flex gap-3 flex-wrap">
+              <button
+                onClick={() => scrollTo("about")}
+                className="px-5 py-2.5 rounded-full text-sm border border-white/15 text-white/65 hover:border-white/40 hover:text-white transition-all duration-200"
+              >
+                Know me more
+              </button>
+              <button
+                onClick={() => scrollTo("experience")}
+                className="px-5 py-2.5 rounded-full text-sm font-semibold text-white hover:opacity-90 transition-all duration-200"
+                style={{ background: "linear-gradient(135deg,#7c3aed,#6366f1)" }}
+              >
+                Experience
+              </button>
+              <button
+                onClick={() => navigate("/stocks")}
+                className="px-5 py-2.5 rounded-full text-sm font-semibold text-white hover:opacity-90 transition-all duration-200"
+                style={{ background: "linear-gradient(135deg,#059669,#0891b2)" }}
+              >
+                My Stocks 📈
+              </button>
+              <button
+                onClick={() => navigate("/tutorials")}
+                className="px-5 py-2.5 rounded-full text-sm font-semibold text-white hover:opacity-90 transition-all duration-200"
+                style={{ background: "linear-gradient(135deg,#ec4899,#f59e0b)" }}
+              >
+                Tutorials 📚
               </button>
             </div>
-
-            {/* Chat Body */}
-            <div className="chat-body">
-              <div className="message bot-message">
-                <ChatbotIcon />
-                <p className="message-text">
-                  hey there, How Can I help you today?
-                </p>
-              </div>
-
-              {chatHistory.map((chat, index) => (
-                <ChatMessage key={index} chat={chat} />
-              ))}
-            </div>
-
-            {/* Chat Footer */}
-            <div className="chat-footer">
-              <ChatForm
-                chatHistory={chatHistory}
-                setChatHistory={setChatHistory}
-                generateBotResponse={generateBotResponse}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        id="home"
-        className="min-h-screen flex flex-col items-center justify-center gap-8 px-4 pt-28 pb-16"
-      >
-        <Jaybot />
-        <div className="hero-copy text-center">
-          <h1 className="text-5xl md:text-8xl font-bold text-white tracking-tight">
-            JAY HAROLD MARS ABEJAR
-          </h1>
-          <p className="mt-4 text-lg md:text-2xl text-cyan-200/90 font-medium tracking-wide">
-            BSIT Student · 1st Year College · Developer
-          </p>
-        </div>
-      </div>
-      <div id="about" className="about-section">
-        <div className="about-inner">
-          <h1 className="text-5xl md:text-6xl text-center font-bold text-white">
-            ABOUT ME
-          </h1>
-
-          <p className="about-lead">
-            I am an <span className="hl">entrepreneur</span> and a developer
-            driven by a big vision. I believe in{" "}
-            <span className="hl">innovation</span> and the courage to always
-            explore more. Starting from scratch, I am a kind but deeply
-            ambitious person determined to turn ideas into impact and to see
-            how far I can go in the next five years.
-          </p>
-
-          {/* Trait cards */}
-          <div className="trait-grid">
-            <div className="trait-card">
-              <span className="trait-icon">💡</span>
-              <h3>Entrepreneur</h3>
-              <p>Building ventures from the ground up with an owner's mindset.</p>
-            </div>
-            <div className="trait-card">
-              <span className="trait-icon">🚀</span>
-              <h3>Big Vision</h3>
-              <p>Thinking long-term and aiming far beyond the ordinary.</p>
-            </div>
-            <div className="trait-card">
-              <span className="trait-icon">⚙️</span>
-              <h3>Innovation</h3>
-              <p>Turning fresh ideas into real, working software.</p>
-            </div>
-            <div className="trait-card">
-              <span className="trait-icon">🌍</span>
-              <h3>Explore More</h3>
-              <p>Endlessly curious — always learning, always pushing forward.</p>
-            </div>
-            <div className="trait-card">
-              <span className="trait-icon">🤝</span>
-              <h3>Kind</h3>
-              <p>Leading with empathy and respect for the people around me.</p>
-            </div>
-            <div className="trait-card">
-              <span className="trait-icon">🔥</span>
-              <h3>Ambitious</h3>
-              <p>Relentlessly driven to reach every goal I set.</p>
-            </div>
           </div>
 
-          {/* Company highlight */}
-          <div className="company-card">
-            <div className="company-badge">CEO &amp; Founder</div>
-            <h2 className="company-name">ILLUMINARY PEAK</h2>
-            <p className="company-tagline">Software as a Service · Innovation</p>
-            <p className="company-desc">
-              I founded and lead Illuminary Peak, a Software-as-a-Service
-              company built on innovation. As CEO, I drive the vision, the
-              products, and the mission to deliver software that makes a
-              difference.
+          {/* Jaybot mascot + Nyla AI card */}
+          <div className="flex flex-col items-center gap-6 w-full md:w-72 flex-shrink-0">
+          <Jaybot />
+          <div
+            className="relative overflow-hidden rounded-2xl p-6 flex flex-col z-0 items-center justify-center gap-3 w-full"
+            style={{
+              background: "linear-gradient(135deg,rgba(124,58,237,.22) 0%,rgba(236,72,153,.12) 100%)",
+              border: "1px solid rgba(124,58,237,.30)",
+              minHeight: 160,
+            }}
+          >
+            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at top left,rgba(124,58,237,.15),transparent 60%)" }} />
+            <div className="relative z-10 flex flex-col items-center gap-2">
+              <span className="text-4xl font-black text-purple-300" style={{ fontFamily: "serif", letterSpacing: "-0.05em" }}>n</span>
+              <p className="text-xs text-white/45">Ask Nyla AI</p>
+              <p className="text-center text-sm font-semibold text-white/75">Nyla AI, is not yet available</p>
+              <button
+                onClick={() => setShowChatbot((p) => !p)}
+                className="mt-1 text-xs px-4 py-1.5 rounded-full font-medium hover:opacity-90 transition-all"
+                style={{ background: "linear-gradient(135deg,#7c3aed,#ec4899)" }}
+              >
+                Try JayHarold_Bot instead
+              </button>
+            </div>
+          </div>
+          </div>
+        </div>
+
+        {/* About snippet */}
+        <div className="mt-16 max-w-2xl" id="about">
+          <h2 className="text-2xl font-bold mb-1">My Name is Jay Harold Mars Abejar</h2>
+          <p className="text-sm text-purple-300 mb-4">
+            Entrepreneur · Future Software Engineer · CEO &amp; Founder of Illuminary Peak
+          </p>
+          <p className="text-sm text-white/60 leading-relaxed mb-4">
+            I am an entrepreneur driven by a big vision, a passion for innovation,
+            and the courage to always explore more. I am a kind but deeply
+            ambitious person, determined to turn ideas into real impact and to see
+            how far I can go in the next decade.
+          </p>
+          <p className="text-sm text-white/60 leading-relaxed mb-6">
+            I am also developing my own AI Copilot, Nyia, currently in its early
+            stages. I am gradually learning to train my own AI and improve its
+            efficiency at work.
+          </p>
+
+          {/* Illuminary Peak highlight */}
+          <div
+            className="rounded-2xl p-5 sm:p-6 flex flex-col gap-2"
+            style={{
+              background: "linear-gradient(135deg,rgba(124,58,237,.22),rgba(236,72,153,.12))",
+              border: "1px solid rgba(124,58,237,.30)",
+            }}
+          >
+            <span
+              className="self-start text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full text-white"
+              style={{ background: "linear-gradient(135deg,#7c3aed,#ec4899)" }}
+            >
+              CEO &amp; Founder
+            </span>
+            <h3 className="text-xl font-black text-white/95 mt-1">Illuminary Peak</h3>
+            <p className="text-xs font-semibold text-purple-300">
+              Software as a Service · Innovation
+            </p>
+            <p className="text-sm text-white/60 leading-relaxed">
+              I founded and lead Illuminary Peak, a Software-as-a-Service company
+              built on innovation. As CEO, I drive the vision, the products, and
+              the mission to deliver software that makes a difference.
             </p>
           </div>
         </div>
-      </div>
-      <div id="projects" className="bg-white/10 h-[130vh]">
-        <h1 className="text-6xl text-center pt-20 p-10 text-white font-bold">
-          PROJECTS
-        </h1>
+      </section>
 
-        <div class="projects-section">
-  <div class="projects-container">
-    <div class="project-card">
-      <img src={Pet} class="project-image" />
-      <h3 class="project-title">Pet-Location</h3>
-      <p class="project-description">Locate your companion, safety</p>
-    </div>
-    <div class="project-card">
-      <img src={Logo}class="project-image" />
-      <h3 class="project-title mt-20">RCJCIM</h3>
-      <p class="project-description"></p>
-    </div>
-    <div class="project-card">
-      <img src={bus}  class="project-image" />
-      <h3 class="project-title">Wander Philippines</h3>
-      <p class="project-description">Wander Philippines is dedicated to providing efficient software as a service to commuters, ensuring their satisfaction and delight with every ride.</p>
-    </div>
-    {/* <div class="project-card">
-      <img src="project4.png" class="project-image" />
-      <h3 class="project-title">Project Four</h3>
-      <p class="project-description">A brief description of Project Four.</p>
-    </div> */}
-  </div>
-</div>
-</div>
-      
-       <div id="contact">
-        <div class="contact-info">
-            <h1 className="text-center text-white p-10 text-5xl">CONTACT</h1>
-            <h2>Gmail: abejar199@gmail.com</h2>
-            <h2>FB: Jay HaroldMars V. Abejar</h2>
-            <h2>My Number: +63 927 386 5959</h2>
+      {/* ── EXPERIENCE ── */}
+      <section id="experience" className="relative z-10 px-5 py-24 max-w-5xl mx-auto">
+        <SectionHeading sub="Technologies & tools I work with">My Experience</SectionHeading>
+        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-7 gap-3">
+          {TECH_STACK.map((tech, i) => (
+            <FadeIn key={tech.name} delay={i * 40}>
+              <div
+                className="flex flex-col items-center gap-2 p-3 rounded-xl cursor-default group transition-all duration-200 hover:-translate-y-1"
+                style={{ background: "rgba(255,255,255,.04)", border: "1px solid rgba(255,255,255,.07)" }}
+                title={tech.name}
+              >
+                <img
+                  src={tech.icon}
+                  alt={tech.name}
+                  className="w-8 h-8 object-contain"
+                  onError={(e) => { e.target.style.display = "none"; }}
+                />
+                <span className="text-[10px] text-white/35 group-hover:text-white/65 transition-colors hidden sm:block truncate w-full text-center">
+                  {tech.name}
+                </span>
+              </div>
+            </FadeIn>
+          ))}
         </div>
-    </div>
 
-    </>
+        {/* WEYAPP highlight */}
+        <FadeIn delay={200}>
+          <div
+            className="mt-6 rounded-2xl p-5 sm:p-6 flex items-center gap-4"
+            style={{ background: "linear-gradient(135deg,rgba(124,58,237,.18),rgba(217,70,239,.10))", border: "1px solid rgba(124,58,237,.25)" }}
+          >
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl"
+              style={{ background: "rgba(255,255,255,.08)" }}>
+              <img src={WEYAPP} alt="PET-LOCATION" className="w-9 h-9 object-contain" />
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-purple-300 uppercase tracking-widest">Featured · Chat System</p>
+              <h3 className="text-lg font-bold text-white/95">WEYAPP!</h3>
+              <p className="text-sm text-white/55 leading-relaxed">
+                A real-time chat application I built — a full messaging system with live message sync between users.
+              </p>
+            </div>
+          </div>
+        </FadeIn>
+      </section>
+
+      {/* ── PROJECTS ── */}
+      <section id="projects" className="relative z-10 px-5 py-24 max-w-5xl mx-auto">
+        <SectionHeading sub="Things I've built and am working on">My Projects</SectionHeading>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+          {/* PET-LOCATION */}
+          <FadeIn delay={0}>
+            <div
+              className="relative overflow-hidden rounded-2xl p-6 flex flex-col gap-3 h-56 group cursor-default transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              style={{ background: "linear-gradient(135deg,rgba(180,83,9,.45) 0%,rgba(120,53,15,.30) 100%)", border: "1px solid rgba(255,255,255,.08)" }}
+            >
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: "radial-gradient(ellipse at top left,rgba(251,146,60,.2),transparent 60%)" }} />
+              <div className="w-12 h-12 rounded-xl overflow-hidden flex items-center justify-center relative z-10"
+                style={{ background: "rgba(255,255,255,.08)" }}>
+                <img src={Pet} alt="PET-LOCATION" className="w-9 h-9 object-contain" />
+              </div>
+              <div className="relative z-10">
+                <span className="text-xs font-semibold text-white/40 uppercase tracking-widest">Capstone · 2024–2025</span>
+                <h3 className="text-lg font-bold text-white/95 mt-0.5">PET-LOCATION</h3>
+                <p className="text-sm text-white/55 leading-relaxed mt-1">
+                  A smart pet tracking system designed to help owners locate their pets in real time.
+                </p>
+              </div>
+              <div className="absolute bottom-0 right-0 w-24 h-24 rounded-full opacity-10 group-hover:opacity-20 transition-opacity"
+                style={{ background: "white", filter: "blur(30px)", transform: "translate(30%,30%)" }} />
+            </div>
+          </FadeIn>
+
+          {/* RCJCIM */}
+          <FadeIn delay={100}>
+            <div
+              className="relative overflow-hidden rounded-2xl p-6 flex flex-col gap-3 h-56 group cursor-default transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              style={{ background: "linear-gradient(135deg,rgba(30,64,175,.45) 0%,rgba(14,116,144,.30) 100%)", border: "1px solid rgba(255,255,255,.08)" }}
+            >
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: "radial-gradient(ellipse at top left,rgba(56,189,248,.2),transparent 60%)" }} />
+              <div className="w-12 h-12 rounded-xl overflow-hidden flex items-center justify-center relative z-10"
+                style={{ background: "rgba(255,255,255,.08)" }}>
+                <img src={Logo} alt="Portfolio" className="w-9 h-9 object-contain" />
+              </div>
+              <div className="relative z-10">
+                <span className="text-xs font-semibold text-white/40 uppercase tracking-widest">React · Design · Web Developer</span>
+                <h3 className="text-lg font-bold text-white/95 mt-0.5">RCJCIM</h3>
+                <p className="text-sm text-white/55 leading-relaxed mt-1">
+                  My Freelance Experience using JavaScript · React · HTML · Tailwind CSS
+                </p>
+              </div>
+              <div className="absolute bottom-0 right-0 w-24 h-24 rounded-full opacity-10 group-hover:opacity-20 transition-opacity"
+                style={{ background: "white", filter: "blur(30px)", transform: "translate(30%,30%)" }} />
+            </div>
+          </FadeIn>
+
+          {/* WEYAPP */}
+          <FadeIn delay={200}>
+            <div
+              className="relative overflow-hidden rounded-2xl p-6 flex flex-col gap-3 h-56 group cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              style={{ background: "linear-gradient(135deg,rgba(124,58,237,.45) 0%,rgba(217,70,239,.30) 100%)", border: "1px solid rgba(255,255,255,.08)" }}
+              onClick={() => navigate("/tutorials")}
+            >
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: "radial-gradient(ellipse at top left,rgba(168,85,247,.25),transparent 60%)" }} />
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center relative z-10 text-2xl"
+                style={{ background: "rgba(255,255,255,.08)" }}>
+                <img src={WEYAPP} alt="PET-LOCATION" className="w-9 h-9 object-contain" />
+              </div>
+              <div className="relative z-10">
+                <span className="text-xs font-semibold text-white/40 uppercase tracking-widest">Chat System · React</span>
+                <h3 className="text-lg font-bold text-white/95 mt-0.5">WEYAPP!</h3>
+                <p className="text-sm text-white/55 leading-relaxed mt-1">
+                  A real-time chat application — full messaging system with live sync. Tap to see the tutorial.
+                </p>
+              </div>
+              <div className="absolute bottom-0 right-0 w-24 h-24 rounded-full opacity-10 group-hover:opacity-20 transition-opacity"
+                style={{ background: "white", filter: "blur(30px)", transform: "translate(30%,30%)" }} />
+            </div>
+          </FadeIn>
+
+          {/* NYIA AI */}
+          <FadeIn delay={300}>
+            <div
+              className="relative overflow-hidden rounded-2xl p-6 flex flex-col gap-3 h-56 group cursor-default transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              style={{ background: "linear-gradient(135deg,rgba(109,40,217,.45) 0%,rgba(157,23,77,.30) 100%)", border: "1px solid rgba(255,255,255,.08)" }}
+            >
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: "radial-gradient(ellipse at top left,rgba(168,85,247,.2),transparent 60%)" }} />
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center relative z-10 text-2xl"
+                style={{ background: "rgba(255,255,255,.08)" }}>
+                <img src={Nyla} alt="PET-LOCATION" className="w-9 h-9 object-contain" />
+              </div>
+              <div className="relative z-10">
+                <span className="text-xs font-semibold text-white/40 uppercase tracking-widest">AI · In Progress</span>
+                <h3 className="text-lg font-bold text-white/95 mt-0.5">Nyia AI Copilot</h3>
+                <p className="text-sm text-white/55 leading-relaxed mt-1">
+                  My own AI Copilot — currently in early stages. Gradually learning to train and improve it.
+                </p>
+              </div>
+              <div className="absolute bottom-0 right-0 w-24 h-24 rounded-full opacity-10 group-hover:opacity-20 transition-opacity"
+                style={{ background: "white", filter: "blur(30px)", transform: "translate(30%,30%)" }} />
+            </div>
+          </FadeIn>
+
+        </div>
+      </section>
+
+      {/* ── SERVICES ── */}
+      <section id="services" className="relative z-10 px-5 py-24 max-w-5xl mx-auto">
+        <SectionHeading sub="What I can do for you">Services</SectionHeading>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+          {SERVICES.map((s, i) => (
+            <FadeIn key={s.title} delay={i * 100}>
+              <div
+                className="rounded-2xl p-6 flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1"
+                style={{ background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.07)" }}
+              >
+                <span className="text-3xl">{s.icon}</span>
+                <h3 className="font-bold text-white/90">{s.title}</h3>
+                <p className="text-sm text-white/55 leading-relaxed">{s.desc}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </section>
+
+      {/* ── CONTACT ── */}
+      <section id="contact" className="relative z-10 px-4 sm:px-5 py-16 sm:py-24 max-w-5xl mx-auto">
+        <SectionHeading sub="Let's work together">Contact</SectionHeading>
+        <FadeIn delay={100}>
+          <div
+            className="rounded-2xl p-5 sm:p-8 flex flex-col sm:flex-row gap-6 sm:gap-10"
+            style={{ background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.07)" }}
+          >
+            {/* Contact details */}
+            <div className="flex flex-col gap-3 sm:flex-1">
+              <p className="text-xs uppercase tracking-widest text-white/30 font-medium mb-1">Reach me at</p>
+              <div className="grid grid-cols-2 sm:grid-cols-1 gap-3">
+                {[
+                  { isImg: false, emoji: "📞", label: "+63 9273865959", href: "tel:+639273865959" },
+                  { isImg: true, icon: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg", label: "abejar199@gmail.com", href: "mailto:abejar199@gmail.com" },
+                  { isImg: true, icon: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg", label: "fb Jay Harold Mars Abejar", href: "https://facebook.com" },
+                  { isImg: true, icon: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png", label: "ig @jayyhrold", href: "https://instagram.com/jayyhrold" },
+                ].map((c) => (
+                  <a
+                    key={c.label}
+                    href={c.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 sm:gap-3 group no-underline p-2 rounded-xl transition-all duration-200"
+                    style={{ background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.06)" }}
+                  >
+                    <span
+                      className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-sm sm:text-base transition-all duration-200 group-hover:scale-110 overflow-hidden"
+                      style={{ background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.08)" }}
+                    >
+                      {c.isImg ? (
+                        <img src={c.icon} alt={c.label} className="w-4 h-4 sm:w-5 sm:h-5 object-contain rounded-sm" />
+                      ) : (
+                        <span>{c.emoji}</span>
+                      )}
+                    </span>
+                    <span className="text-xs sm:text-sm text-white/60 group-hover:text-white transition-colors duration-200 truncate">
+                      {c.label}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="block sm:hidden h-px w-full" style={{ background: "rgba(255,255,255,.07)" }} />
+            <div className="hidden sm:block w-px self-stretch" style={{ background: "rgba(255,255,255,.07)" }} />
+
+            {/* CTA */}
+            <div className="sm:flex-1 flex flex-col gap-4 justify-center">
+              <h3 className="text-base font-bold text-white/85">Let's work together</h3>
+              <p className="text-sm text-white/50 leading-relaxed">
+                Have a project in mind or want to collaborate? I'm open to freelance work,
+                collaborations, and new opportunities. Let's build something great together!
+              </p>
+              <a
+                href="mailto:abejar199@gmail.com"
+                className="mt-1 w-full sm:w-auto text-center sm:self-start px-5 py-3 rounded-full text-sm font-semibold text-white hover:opacity-90 active:scale-95 transition-all duration-200 no-underline"
+                style={{ background: "linear-gradient(135deg,#7c3aed,#ec4899)" }}
+              >
+                Say Hello 👋
+              </a>
+            </div>
+          </div>
+        </FadeIn>
+      </section>
+
+      {/* ── FOOTER ── */}
+      <footer className="relative z-10 px-5 py-8 text-center border-t border-white/5">
+        <p className="text-xs text-white/25">© 2025 updated 2026 Jay Harold Mars V. Abejar · Built with React & Tailwind CSS</p>
+      </footer>
+
+      {/* ── CHATBOT ── */}
+      <div className={`z-50 container ${showChatbot ? "show-chatbot" : ""}`}>
+        <button
+          id="chatbot-toggler"
+          onClick={() => setShowChatbot((p) => !p)}
+          className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110"
+          style={{ background: "linear-gradient(135deg,#7c3aed,#ec4899)", boxShadow: "0 8px 28px rgba(124,58,237,.5)" }}
+        >
+          <span className="material-symbols-rounded" style={{ color: "#fff" }}>mode_comment</span>
+          <span className="material-symbols-rounded" style={{ color: "#fff" }}>close</span>
+        </button>
+
+        <div className="chatbot-popup">
+          <div className="chat-header" style={{ background: "linear-gradient(135deg,rgba(124,58,237,.5),rgba(236,72,153,.3))", borderBottom: "1px solid rgba(255,255,255,.08)" }}>
+            <div className="header-info">
+              <ChatbotIcon />
+              <h2 className="logo-text">JayHarold_Bot</h2>
+            </div>
+            <button className="material-symbols-rounded" onClick={() => setShowChatbot(false)}>
+              keyboard_arrow_down
+            </button>
+          </div>
+
+          <div className="chat-body">
+            <div className="message bot-message">
+              <ChatbotIcon />
+              <p className="message-text">Hey there! How can I help you today? 👋</p>
+            </div>
+            {chatHistory.map((chat, index) => (
+              <ChatMessage key={index} chat={chat} />
+            ))}
+          </div>
+
+          <div className="chat-footer">
+            <ChatForm
+              chatHistory={chatHistory}
+              setChatHistory={setChatHistory}
+              generateBotResponse={generateBotResponse}
+            />
+          </div>
+        </div>
+      </div>
+
+    </div>
   );
 }
