@@ -26,7 +26,7 @@ function ChatForm({ chatHistory, setChatHistory, generateBotResponse }) {
         className="message-input"
         required
       />
-      <button className="material-symbols-rounded">arrow_upward</button>
+      <button className="z-99">arrow_upward</button>
     </form>
   );
 }

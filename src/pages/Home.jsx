@@ -5,6 +5,7 @@ import bus from "../assets/bus.png";
 import ChatMessage from "../components/ChatMessage";
 import ChatbotIcon from "../components/ChatbotIcon";
 import ChatForm from "../components/ChatForm";
+import Jaybot from "../components/Jaybot";
 import { config } from "../utils/config";
 
 export default function Home() {
@@ -106,8 +107,18 @@ export default function Home() {
 
   return (
     <>
+      {/* Immersive futuristic background */}
+      <div className="background"></div>
+      <div className="floating-shapes">
+        <div className="shape orb s1"></div>
+        <div className="shape s2"></div>
+        <div className="shape ring s3"></div>
+        <div className="shape orb s4"></div>
+        <div className="shape ring s5"></div>
+      </div>
+      <div className="bg-vignette"></div>
+
       <div className="mx-auto rounded-lg w-full max-w-4xl h-auto p-4 sm:p-8">
-        <div className="background"></div>
 
         {/* Navigation */}
         {/* <div>
@@ -209,30 +220,81 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div id="home" className="h-[100vh]">
-        <h1 className="text-6xl md:text-8xl text-center font-bold pt-40 text-white">
-          JAY HAROLD MARS ABEJAR
-        </h1>
-        <p className="text-center text-white">
-          BSIT Student, 1st year college Developer{" "}
-        </p>
-      </div>
-      <div id="about" className="bg-black/50 h-[100vh]">
-        <h1 className="text-5xl text-center font-bold pt-25  text-white">
-          ABOUT ME
-        </h1>
-        <div>
-          <p className="text-center text-white text-2xl mt-10">
-            I am a student with a vision of success, an entrepreneurial mindset,
-            and the drive to achieve my goals. Starting from scratch, I am
-            determined to reach them. I am currently working as a freelancer,
-            and I am excited to see how far I will go in the next five years.
+      <div
+        id="home"
+        className="min-h-screen flex flex-col items-center justify-center gap-8 px-4 pt-28 pb-16"
+      >
+        <Jaybot />
+        <div className="hero-copy text-center">
+          <h1 className="text-5xl md:text-8xl font-bold text-white tracking-tight">
+            JAY HAROLD MARS ABEJAR
+          </h1>
+          <p className="mt-4 text-lg md:text-2xl text-cyan-200/90 font-medium tracking-wide">
+            BSIT Student · 1st Year College · Developer
           </p>
-          {/* <div className="tag left-2 text-left max-w-sm mx-2 md:mx-5 mt-30 text-1xl p-5 md:text-2xl font-semibold text-white transition-transform hover:scale-105 border border-white border-opacity-20 rounded-lg shadow-lg">
-            <p className="">ILLUMINARY PEAK</p>
-            <p className="text-sm">CEO/FOUNDER</p>
-            <p className="text-sm">(Software Company)</p>
-          </div> */}
+        </div>
+      </div>
+      <div id="about" className="about-section">
+        <div className="about-inner">
+          <h1 className="text-5xl md:text-6xl text-center font-bold text-white">
+            ABOUT ME
+          </h1>
+
+          <p className="about-lead">
+            I am an <span className="hl">entrepreneur</span> and a developer
+            driven by a big vision. I believe in{" "}
+            <span className="hl">innovation</span> and the courage to always
+            explore more. Starting from scratch, I am a kind but deeply
+            ambitious person determined to turn ideas into impact and to see
+            how far I can go in the next five years.
+          </p>
+
+          {/* Trait cards */}
+          <div className="trait-grid">
+            <div className="trait-card">
+              <span className="trait-icon">💡</span>
+              <h3>Entrepreneur</h3>
+              <p>Building ventures from the ground up with an owner's mindset.</p>
+            </div>
+            <div className="trait-card">
+              <span className="trait-icon">🚀</span>
+              <h3>Big Vision</h3>
+              <p>Thinking long-term and aiming far beyond the ordinary.</p>
+            </div>
+            <div className="trait-card">
+              <span className="trait-icon">⚙️</span>
+              <h3>Innovation</h3>
+              <p>Turning fresh ideas into real, working software.</p>
+            </div>
+            <div className="trait-card">
+              <span className="trait-icon">🌍</span>
+              <h3>Explore More</h3>
+              <p>Endlessly curious — always learning, always pushing forward.</p>
+            </div>
+            <div className="trait-card">
+              <span className="trait-icon">🤝</span>
+              <h3>Kind</h3>
+              <p>Leading with empathy and respect for the people around me.</p>
+            </div>
+            <div className="trait-card">
+              <span className="trait-icon">🔥</span>
+              <h3>Ambitious</h3>
+              <p>Relentlessly driven to reach every goal I set.</p>
+            </div>
+          </div>
+
+          {/* Company highlight */}
+          <div className="company-card">
+            <div className="company-badge">CEO &amp; Founder</div>
+            <h2 className="company-name">ILLUMINARY PEAK</h2>
+            <p className="company-tagline">Software as a Service · Innovation</p>
+            <p className="company-desc">
+              I founded and lead Illuminary Peak, a Software-as-a-Service
+              company built on innovation. As CEO, I drive the vision, the
+              products, and the mission to deliver software that makes a
+              difference.
+            </p>
+          </div>
         </div>
       </div>
       <div id="projects" className="bg-white/10 h-[130vh]">

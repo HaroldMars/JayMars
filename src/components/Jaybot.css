@@ -1,0 +1,348 @@
+/* ============================================================
+   Jaybot — a futuristic, touch-interactive robot mascot.
+   All internal parts are sized in `em`, scaled by the clamped
+   font-size on .jaybot so the whole bot is fluidly responsive.
+   ============================================================ */
+
+.jaybot-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  pointer-events: none;
+}
+
+.jaybot {
+  position: relative;
+  font-size: clamp(6.5px, 1.15vmin, 11px);
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  filter: drop-shadow(0 1.6em 3em rgba(0, 0, 0, 0.45));
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.jaybot:hover {
+  transform: translateY(-0.6em) scale(1.02);
+}
+
+.jaybot:focus-visible {
+  outline: 2px solid rgba(77, 227, 255, 0.8);
+  outline-offset: 1.5em;
+  border-radius: 6em;
+}
+
+.jaybot.is-poked .jaybot-float {
+  animation: jbPoke 0.42s ease;
+}
+
+@keyframes jbPoke {
+  0%   { transform: translateY(0) scale(1); }
+  35%  { transform: translateY(0.7em) scale(0.97, 1.03); }
+  70%  { transform: translateY(-1em) scale(1.03, 0.97); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* -------- floating group -------- */
+.jaybot-float {
+  animation: jbFloat 5s ease-in-out infinite;
+}
+
+@keyframes jbFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2.6em); }
+}
+
+/* -------- antenna -------- */
+.jb-antenna {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.jb-antenna-orb {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #b9f4ff, #4de3ff 60%, #1a9dc0);
+  animation: jbGlow 3s ease-in-out infinite;
+}
+
+.jb-antenna-rod {
+  width: 0.8em;
+  height: 4em;
+  background: linear-gradient(90deg, #5a6a95, #2c3654 60%, #1d2540);
+  border-radius: 0.4em;
+}
+
+@keyframes jbGlow {
+  0%, 100% { box-shadow: 0 0 1.2em 0.3em rgba(77, 227, 255, 0.8), 0 0 4em 1em rgba(77, 227, 255, 0.35); }
+  50%      { box-shadow: 0 0 2em 0.6em rgba(77, 227, 255, 1),   0 0 7em 2em rgba(77, 227, 255, 0.5); }
+}
+
+/* -------- head -------- */
+.jb-head {
+  position: relative;
+  width: 30em;
+  height: 24em;
+  margin-top: -0.4em;
+  border-radius: 9em;
+  background: linear-gradient(160deg, #e8edf8 0%, #c3cde4 40%, #8d9bc0 80%, #6f7ea6 100%);
+  box-shadow:
+    inset 0 1em 2em rgba(255, 255, 255, 0.7),
+    inset 0 -1.4em 2.4em rgba(30, 42, 80, 0.55),
+    0 2em 6em rgba(0, 0, 0, 0.45);
+}
+
+.jb-ear {
+  position: absolute;
+  top: 8.5em;
+  width: 3em;
+  height: 7em;
+  border-radius: 1.5em;
+  box-shadow: inset 0 0.4em 0.8em rgba(255, 255, 255, 0.5);
+}
+.jb-ear-l { left: -2em;  background: linear-gradient(160deg, #a9b6d4, #5f6e96); }
+.jb-ear-r { right: -2em; background: linear-gradient(200deg, #a9b6d4, #5f6e96); }
+
+/* -------- visor -------- */
+.jb-visor {
+  position: absolute;
+  inset: 3.2em 3.6em;
+  border-radius: 6.4em;
+  background: linear-gradient(165deg, #0e1730 0%, #060b1c 70%);
+  box-shadow:
+    inset 0 0.5em 1.6em rgba(0, 0, 0, 0.9),
+    inset 0 -0.3em 0.9em rgba(77, 227, 255, 0.15);
+  overflow: hidden;
+}
+
+.jb-scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 2em;
+  height: 1.4em;
+  background: linear-gradient(180deg, transparent, rgba(77, 227, 255, 0.25), transparent);
+  animation: jbScan 4.5s ease-in-out infinite;
+}
+
+@keyframes jbScan {
+  0%   { transform: translateY(-2em); opacity: 0; }
+  15%  { opacity: 0.5; }
+  85%  { opacity: 0.5; }
+  100% { transform: translateY(8em); opacity: 0; }
+}
+
+.jb-eyes {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4.6em;
+}
+
+.jb-eye {
+  width: 3.4em;
+  height: 4.6em;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 30%, #d7f8ff, #4de3ff 65%);
+  box-shadow: 0 0 2.4em 0.5em rgba(77, 227, 255, 0.55);
+  transform-origin: center;
+  animation: jbBlink 6s ease-in-out infinite;
+  transition: height 0.3s ease, border-radius 0.3s ease;
+}
+.jb-eye-2 { animation-delay: 0.12s; }
+
+@keyframes jbBlink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95%           { transform: scaleY(0.08); }
+}
+
+/* focused expression — narrowed eyes while speaking */
+.jaybot.expr-focused .jb-eye {
+  height: 1.5em;
+  border-radius: 0.7em;
+}
+
+.jb-smile {
+  position: absolute;
+  left: 50%;
+  bottom: 2.6em;
+  transform: translateX(-50%);
+  width: 5.4em;
+  height: 2.6em;
+  border-radius: 0 0 5.4em 5.4em;
+  border: 0.55em solid rgba(77, 227, 255, 0.85);
+  border-top: none;
+  box-shadow: 0 0 1.6em rgba(77, 227, 255, 0.4);
+  transition: opacity 0.25s ease;
+}
+.jaybot.expr-focused .jb-smile { opacity: 0; }
+
+.jb-sheen {
+  position: absolute;
+  top: -30%;
+  left: -10%;
+  width: 70%;
+  height: 70%;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.14), transparent 60%);
+  border-radius: 50%;
+  transform: rotate(-15deg);
+}
+
+/* -------- neck -------- */
+.jb-neck {
+  width: 6em;
+  height: 2.4em;
+  margin: 0 auto;
+  background: linear-gradient(90deg, #4a5878, #7c8bb0 50%, #4a5878);
+  border-radius: 0 0 1em 1em;
+}
+
+/* -------- body -------- */
+.jb-body {
+  position: relative;
+  width: 22em;
+  height: 17em;
+  margin: 0 auto;
+  border-radius: 6.5em 6.5em 8.5em 8.5em;
+  background: linear-gradient(160deg, #e8edf8 0%, #c3cde4 40%, #8d9bc0 85%);
+  box-shadow:
+    inset 0 1em 2em rgba(255, 255, 255, 0.7),
+    inset 0 -1.2em 2.2em rgba(30, 42, 80, 0.5),
+    0 2.4em 7em rgba(0, 0, 0, 0.5);
+}
+
+.jb-core {
+  position: absolute;
+  top: 4.4em;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7em;
+  height: 7em;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #10203c, #060b1c 75%);
+  box-shadow: inset 0 0.4em 1em rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jb-core-glow {
+  width: 3.2em;
+  height: 3.2em;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 30%, #d7f8ff, #4de3ff 60%, #1a9dc0);
+  animation: jbGlow 3s ease-in-out 0.6s infinite;
+}
+
+.jb-arm {
+  position: absolute;
+  top: 2.6em;
+  width: 4em;
+  height: 10em;
+  border-radius: 2em;
+  box-shadow:
+    inset 0 0.5em 1em rgba(255, 255, 255, 0.6),
+    inset 0 -0.5em 1em rgba(30, 42, 80, 0.4);
+  transition: transform 0.35s ease;
+}
+.jb-arm-l { left: -4.6em;  background: linear-gradient(160deg, #cdd6ea, #7c8bb0); transform: rotate(8deg); }
+.jb-arm-r { right: -4.6em; background: linear-gradient(200deg, #cdd6ea, #7c8bb0); transform: rotate(-8deg); }
+
+/* little wave with the right arm when poked */
+.jaybot.is-poked .jb-arm-r { animation: jbWave 0.42s ease; }
+@keyframes jbWave {
+  0%, 100% { transform: rotate(-8deg); }
+  50%      { transform: rotate(-38deg); }
+}
+
+/* -------- hover shadow -------- */
+.jb-shadow {
+  width: 20em;
+  height: 3em;
+  margin: 1.6em auto 0;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.55), transparent 70%);
+  animation: jbShadow 5s ease-in-out infinite;
+}
+
+@keyframes jbShadow {
+  0%, 100% { transform: scaleX(1);    opacity: 0.55; }
+  50%      { transform: scaleX(0.78); opacity: 0.3; }
+}
+
+/* -------- speech bubble -------- */
+.jaybot-speech {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% - 2em);
+  transform: translate(-50%, 0.8em) scale(0.85);
+  width: max-content;
+  max-width: 26em;
+  padding: 1.4em 2em;
+  border-radius: 2.2em;
+  background: linear-gradient(160deg, rgba(20, 32, 60, 0.92), rgba(9, 15, 33, 0.92));
+  border: 1px solid rgba(77, 227, 255, 0.45);
+  box-shadow: 0 0.8em 3em rgba(0, 0, 0, 0.5), 0 0 2.4em rgba(77, 227, 255, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #eaf7ff;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: clamp(11px, 1.6vmin, 15px);
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 3;
+}
+
+.jaybot-speech::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 0.8em solid transparent;
+  border-top-color: rgba(77, 227, 255, 0.45);
+}
+
+.jaybot-speech.show {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+/* -------- "tap me" hint -------- */
+.jaybot-hint {
+  position: absolute;
+  left: 50%;
+  bottom: -2.4em;
+  transform: translateX(-50%);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: clamp(10px, 1.4vmin, 13px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(77, 227, 255, 0.75);
+  animation: jbHint 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes jbHint {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.9; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jaybot-float,
+  .jb-antenna-orb,
+  .jb-core-glow,
+  .jb-scanline,
+  .jb-eye,
+  .jb-shadow,
+  .jaybot-hint { animation: none; }
+}
