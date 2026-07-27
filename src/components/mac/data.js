@@ -30,6 +30,7 @@ export const PROJECTS = [
 
 export const SERVICES = [
   { icon: "💻", title: "Web Development", desc: "Modern, responsive web apps with React, Tailwind & JavaScript." },
+  { icon: "📱", title: "App Development", desc: "Cross-platform mobile & desktop apps with clean, functional experiences." },
   { icon: "🎨", title: "UI/UX Design", desc: "Clean, user-friendly interfaces designed in Figma." },
   { icon: "🤖", title: "AI Integration", desc: "Smart AI-powered features built into web applications." },
 ];
