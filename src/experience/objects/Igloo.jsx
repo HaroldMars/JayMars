@@ -1,34 +1,63 @@
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { makeNoiseTexture, snowVert, snowFrag } from "./materials";
 
-/** Procedural igloo — stable packed-snow silhouette inspired by Igloo Inc. */
+/**
+ * Procedural igloo — denser packing + shared snow shader (Igloo Inc. silhouette).
+ */
 export default function Igloo({ progressRef }) {
   const root = useRef();
   const group = useRef();
   const door = useRef();
+  const noise = useMemo(() => makeNoiseTexture(256), []);
+
+  const material = useMemo(() => {
+    const m = new THREE.ShaderMaterial({
+      uniforms: {
+        uColor: { value: new THREE.Color("#e9eef3") },
+        uTint: { value: new THREE.Color("#d5dde6") },
+        uRough: { value: 0.9 },
+        uNoise: { value: noise },
+      },
+      vertexShader: snowVert,
+      fragmentShader: snowFrag,
+    });
+    return m;
+  }, [noise]);
+
+  const darkMat = useMemo(
+    () => new THREE.MeshStandardMaterial({ color: "#1c2026", roughness: 1, metalness: 0 }),
+    []
+  );
+  const stepMat = useMemo(
+    () => new THREE.MeshStandardMaterial({ color: "#d8dee6", roughness: 0.95 }),
+    []
+  );
+
   const blocks = useMemo(() => {
     const items = [];
-    const rows = 8;
+    const rows = 9;
     for (let row = 0; row < rows; row++) {
-      const y = 0.22 + row * 0.38;
-      const radius = 2.45 - row * 0.2;
-      const count = Math.max(10, 20 - row * 2);
-      const tilt = row * 0.08;
+      const t = row / (rows - 1);
+      const y = 0.2 + row * 0.34;
+      const radius = Math.sin(Math.PI * (0.12 + t * 0.78)) * 2.55;
+      const count = Math.max(12, Math.floor(22 - row * 1.5));
       for (let i = 0; i < count; i++) {
-        const a = (i / count) * Math.PI * 2 + row * 0.08;
+        const a = (i / count) * Math.PI * 2 + row * 0.07;
         const nx = Math.sin(a);
         const nz = Math.cos(a);
-        const inDoor = nz > 0.78 && Math.abs(nx) < 0.42 && row < 4;
+        const inDoor = nz > 0.76 && Math.abs(nx) < 0.4 && row < 4;
         if (inDoor) continue;
+        const jitter = 0.02 * Math.sin(i * 12.989 + row * 78.233);
         items.push({
           key: `${row}-${i}`,
-          position: [nx * radius, y, nz * radius],
-          rotation: [tilt * 0.35, a + Math.PI, 0.02 * Math.sin(i + row)],
+          position: [nx * (radius + jitter), y, nz * (radius + jitter)],
+          rotation: [row * 0.05, a + Math.PI, ((i % 5) - 2) * 0.02],
           scale: [
-            0.5 + (i % 3) * 0.03,
-            0.36 + (row % 2) * 0.035,
-            0.44 + (i % 2) * 0.035,
+            0.46 + (i % 3) * 0.028,
+            0.32 + (row % 2) * 0.03,
+            0.4 + (i % 2) * 0.03,
           ],
           row,
         });
@@ -36,9 +65,9 @@ export default function Igloo({ progressRef }) {
     }
     items.push({
       key: "cap",
-      position: [0, 3.2, 0],
+      position: [0, 3.15, 0],
       rotation: [0, 0, 0],
-      scale: [1.05, 0.5, 1.05],
+      scale: [0.95, 0.42, 0.95],
       row: 99,
     });
     return items;
@@ -49,36 +78,37 @@ export default function Igloo({ progressRef }) {
     [blocks]
   );
 
-  useFrame((_, dt) => {
+  useFrame((state, dt) => {
     if (!group.current || !root.current) return;
     const progress = progressRef?.current ?? 0;
-    // Gentle separation only near the end — keep igloo readable for most of the scroll
-    const explode = THREE.MathUtils.smoothstep(progress, 0.72, 0.95) * 0.55;
+    const explode = THREE.MathUtils.smoothstep(progress, 0.78, 0.97) * 0.4;
+    const breathe = Math.sin(state.clock.elapsedTime * 0.55) * 0.008;
+
     group.current.children.forEach((child, idx) => {
       const base = blocks[idx];
       if (!base || !dirs[idx]) return;
       const dir = dirs[idx];
-      const lift = explode * (0.2 + (base.row % 5) * 0.18);
       child.position.set(
-        base.position[0] + dir.x * explode * (0.35 + (idx % 4) * 0.1),
-        base.position[1] + lift,
-        base.position[2] + dir.z * explode * (0.35 + (idx % 3) * 0.08)
+        base.position[0] + dir.x * explode * (0.25 + (idx % 4) * 0.08),
+        base.position[1] + explode * (0.15 + (base.row % 4) * 0.12) + breathe * ((idx % 3) - 1),
+        base.position[2] + dir.z * explode * (0.25 + (idx % 3) * 0.06)
       );
       child.rotation.set(
         base.rotation[0],
-        base.rotation[1] + explode * 0.15 * Math.sin(idx),
+        base.rotation[1] + explode * 0.12 * Math.sin(idx),
         base.rotation[2]
       );
     });
-    root.current.rotation.y += dt * 0.01 * (1 - explode * 0.5);
+
+    root.current.rotation.y += dt * 0.008 * (1 - explode * 0.6);
     if (door.current) {
-      door.current.visible = explode < 0.45;
-      door.current.scale.setScalar(1 - explode * 0.35);
+      door.current.visible = explode < 0.5;
+      door.current.scale.setScalar(1 - explode * 0.3);
     }
   });
 
   return (
-    <group ref={root} position={[0, 0, 0]}>
+    <group ref={root}>
       <group ref={group}>
         {blocks.map((b) => (
           <mesh
@@ -88,32 +118,22 @@ export default function Igloo({ progressRef }) {
             scale={b.scale}
             castShadow
             receiveShadow
+            material={material}
           >
             <boxGeometry args={[1, 1, 1]} />
-            <meshStandardMaterial
-              color="#e8edf2"
-              roughness={0.88}
-              metalness={0.04}
-              flatShading
-            />
           </mesh>
         ))}
       </group>
 
       <group ref={door}>
-        <mesh position={[0, 0.95, 1.55]} rotation={[0.08, 0, 0]}>
-          <cylinderGeometry args={[0.55, 0.62, 1.85, 20, 1, true]} />
-          <meshStandardMaterial
-            color="#3d4450"
-            roughness={1}
-            side={THREE.BackSide}
-            transparent
-            opacity={0.9}
-          />
+        <mesh position={[0, 0.9, 1.35]} castShadow material={darkMat}>
+          <boxGeometry args={[1.15, 1.75, 1.2]} />
         </mesh>
-        <mesh position={[0, 0.12, 2.35]} receiveShadow>
-          <boxGeometry args={[1.5, 0.12, 1.1]} />
-          <meshStandardMaterial color="#d5dbe3" roughness={1} />
+        <mesh position={[0, 1.72, 1.35]} rotation={[Math.PI / 2, 0, 0]} material={darkMat}>
+          <cylinderGeometry args={[0.58, 0.58, 1.2, 20, 1, false, 0, Math.PI]} />
+        </mesh>
+        <mesh position={[0, 0.06, 2.15]} receiveShadow material={stepMat}>
+          <boxGeometry args={[1.6, 0.1, 1.4]} />
         </mesh>
       </group>
     </group>
