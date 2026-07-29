@@ -3,16 +3,28 @@
 
 
 /* Basic Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body,
 html {
   margin: 0;
   padding: 0;
-  height: 100%;
-  font-family: Arial, sans-serif;
+  min-height: 100%;
+  font-family: "IBM Plex Sans", "Helvetica Neue", sans-serif;
   overflow-x: hidden;
   overflow-y: auto;
   scroll-behavior: smooth;
-  background: #060a18;
+  background: #c5cad3;
+  color: #16191f;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
 }
 
 /* Hero entrance */
