@@ -9,12 +9,9 @@ function ChatForm({ chatHistory, setChatHistory, generateBotResponse }) {
     if (!userMessage) return;
     inputRef.current.value = "";
 
-    setChatHistory((history) => [...history, { role: "user", text: userMessage }]);
-
-    setTimeout(() => setChatHistory((history) => [...history, { role: "model", text: "Thinking..." }]),
-     600);
-
-     generateBotResponse([...chatHistory, { role: "user", text: userMessage }]);
+    const nextHistory = [...chatHistory, { role: "user", text: userMessage }];
+    setChatHistory([...nextHistory, { role: "model", text: "Thinking..." }]);
+    generateBotResponse(nextHistory);
   };
 
   return (
@@ -25,8 +22,13 @@ function ChatForm({ chatHistory, setChatHistory, generateBotResponse }) {
         placeholder="Message..."
         className="message-input"
         required
+        autoComplete="off"
       />
-      <button className="z-99">arrow_upward</button>
+      <button type="submit" className="z-99" aria-label="Send">
+        <span className="material-symbols-rounded" style={{ fontSize: 18, lineHeight: 1 }}>
+          arrow_upward
+        </span>
+      </button>
     </form>
   );
 }
