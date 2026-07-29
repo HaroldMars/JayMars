@@ -23,7 +23,6 @@
   color: var(--exp-ink);
   font-family: var(--font-body);
   background: var(--exp-sky);
-  overflow-x: hidden;
 }
 
 .exp-canvas-wrap {
@@ -36,6 +35,52 @@
   width: 100% !important;
   height: 100% !important;
   display: block;
+}
+
+.exp-scroll-fx {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.15s linear;
+}
+
+.exp-scroll-spacer {
+  position: relative;
+  z-index: 1;
+  height: 480vh;
+  pointer-events: none;
+}
+
+.exp-fixed-ui {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 clamp(18px, 5vw, 56px) clamp(28px, 5vh, 52px);
+}
+
+.exp-ui-block {
+  pointer-events: auto;
+  max-width: min(560px, 100%);
+  margin-bottom: 8px;
+}
+
+.exp-ui-enter {
+  animation: expUiIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes expUiIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .exp-loader {
@@ -79,16 +124,8 @@
 }
 
 /* ---------- Desktop shell ---------- */
-.exp-desktop {
-  position: relative;
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* Inactive section shells never steal clicks from the active one or the canvas */
-.exp-section-copy,
-.exp-hero-copy {
-  /* pointer-events toggled inline per active section */
+.exp-desktop-root {
+  overflow-x: clip;
 }
 
 .exp-topbar {
@@ -155,22 +192,13 @@
   height: 520vh;
 }
 
-.exp-sticky-ui {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 0 clamp(18px, 5vw, 56px) clamp(28px, 5vh, 52px);
-  pointer-events: none;
-}
-
 .exp-hero-copy,
 .exp-section-copy {
   max-width: 720px;
-  pointer-events: none;
-  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.exp-ui-block {
+  pointer-events: auto !important;
 }
 
 .exp-kicker {
@@ -345,22 +373,99 @@
   width: min(560px, 100%);
   padding: 28px 28px 24px;
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 0 18px 50px rgba(20, 30, 40, 0.14);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 22px 55px rgba(20, 30, 40, 0.22);
+  color: var(--exp-ink);
 }
 .exp-content-card h2 {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-size: clamp(1.55rem, 3vw, 2.1rem);
   letter-spacing: -0.04em;
-  margin: 0 0 12px;
+  margin: 0 0 10px;
+  color: var(--exp-ink);
 }
 .exp-content-card p {
   margin: 0;
   color: var(--exp-muted);
   line-height: 1.6;
+}
+.exp-about-row {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin: 8px 0 12px;
+}
+.exp-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.exp-sub {
+  margin: 4px 0 0 !important;
+}
+.exp-project-grid {
+  grid-template-columns: 1fr 1fr !important;
+}
+.exp-project-chip {
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+.exp-project-chip span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.exp-skill-grid {
+  grid-template-columns: repeat(4, 1fr) !important;
+}
+.exp-skill-chip {
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
+}
+.exp-skill-chip span {
+  font-size: 10px;
+  opacity: 0.7;
+}
+.exp-service-list {
+  margin-top: 16px;
+  display: grid;
+  gap: 8px;
+}
+.exp-chip-desc {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--exp-muted);
+}
+.exp-chip strong {
+  display: block;
+  font-size: 13px;
+}
+
+.exp-chat-panel {
+  top: auto !important;
+  bottom: 96px;
+  right: 28px;
+  transform: none !important;
+  width: min(380px, calc(100vw - 32px));
+}
+.exp-chat-body {
+  height: 280px;
+  margin-bottom: 0 !important;
+  background: #fff;
+  border-radius: 14px;
+}
+.exp-chat-footer {
+  position: relative;
+  margin-top: 10px;
+  padding: 10px 0 0;
 }
 
 .exp-grid-mini {
