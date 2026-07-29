@@ -120,8 +120,7 @@ export default function DesktopExperience() {
   const show = (idx) => section === idx;
 
   const projects = useMemo(() => PROJECTS, []);
-  const blurAmt = Math.min(6, Math.max(0, (progress - 0.08) * 10));
-  const vignette = 0.12 + progress * 0.18;
+  const vignette = 0.1 + progress * 0.2;
 
   return (
     <div className="exp-root exp-desktop-root">
@@ -147,14 +146,12 @@ export default function DesktopExperience() {
         />
       </div>
 
-      {/* Scroll-linked atmosphere: blur + vignette over the 3D world */}
+      {/* Subtle CSS wash — primary blur comes from WebGL DepthOfField */}
       <div
         className="exp-scroll-fx"
         style={{
-          backdropFilter: blurAmt > 0.2 ? `blur(${blurAmt}px)` : "none",
-          WebkitBackdropFilter: blurAmt > 0.2 ? `blur(${blurAmt}px)` : "none",
-          opacity: Math.min(0.55, progress * 0.7),
-          background: `radial-gradient(70% 60% at 50% 40%, transparent 35%, rgba(170,178,188,${vignette}) 100%)`,
+          opacity: Math.min(0.35, progress * 0.45),
+          background: `radial-gradient(70% 60% at 50% 40%, transparent 40%, rgba(170,178,188,${vignette}) 100%)`,
         }}
         aria-hidden
       />
