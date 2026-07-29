@@ -74,6 +74,7 @@ export function Snow({ count = 500, reduced = false }) {
   }, [n]);
 
   useFrame((_, dt) => {
+    if (!ref.current) return;
     const pos = ref.current.geometry.attributes.position.array;
     for (let i = 0; i < n; i++) {
       pos[i * 3 + 1] -= data.speeds[i] * dt;
@@ -104,6 +105,61 @@ export function Snow({ count = 500, reduced = false }) {
         opacity={0.75}
         depthWrite={false}
         sizeAttenuation
+      />
+    </points>
+  );
+}
+
+/** Soft ground mist / smoke drifting around the igloo */
+export function Mist({ count = 60, reduced = false }) {
+  const ref = useRef();
+  const n = reduced ? Math.min(count, 28) : count;
+  const data = useMemo(() => {
+    const positions = new Float32Array(n * 3);
+    const phases = new Float32Array(n);
+    for (let i = 0; i < n; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const r = 4.5 + Math.random() * 12;
+      positions[i * 3] = Math.cos(a) * r;
+      positions[i * 3 + 1] = 0.25 + Math.random() * 0.9;
+      positions[i * 3 + 2] = Math.sin(a) * r;
+      phases[i] = Math.random() * Math.PI * 2;
+    }
+    return { positions, phases };
+  }, [n]);
+
+  useFrame((state) => {
+    if (!ref.current) return;
+    const t = state.clock.elapsedTime;
+    const pos = ref.current.geometry.attributes.position.array;
+    for (let i = 0; i < n; i++) {
+      const ph = data.phases[i];
+      pos[i * 3] += Math.sin(t * 0.15 + ph) * 0.003;
+      pos[i * 3 + 2] += Math.cos(t * 0.12 + ph) * 0.003;
+      pos[i * 3 + 1] = 0.3 + Math.sin(t * 0.3 + ph) * 0.15 + (i % 4) * 0.05;
+    }
+    ref.current.geometry.attributes.position.needsUpdate = true;
+    ref.current.rotation.y = t * 0.015;
+  });
+
+  return (
+    <points ref={ref}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={n}
+          array={data.positions}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.55}
+        color="#cfd7e0"
+        transparent
+        opacity={0.18}
+        depthWrite={false}
+        sizeAttenuation
+        blending={THREE.NormalBlending}
       />
     </points>
   );
@@ -160,13 +216,13 @@ export function IceShards({ projects, progressRef, onSelect, selectedId }) {
             document.body.style.cursor = "auto";
           }}
         >
-          <octahedronGeometry args={[0.55, 0]} />
+          <octahedronGeometry args={[0.38, 0]} />
           <meshPhysicalMaterial
             color={selectedId === s.id ? "#9ec5e8" : "#cfe0ef"}
             roughness={0.18}
             metalness={0.08}
             transparent
-            opacity={0.88}
+            opacity={0.78}
           />
         </mesh>
       ))}

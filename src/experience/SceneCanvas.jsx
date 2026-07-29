@@ -2,7 +2,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { useMemo } from "react";
 import Igloo from "./objects/Igloo";
-import { Terrain, Hills, Snow, IceShards } from "./objects/Environment";
+import { Terrain, Hills, Snow, Mist, IceShards } from "./objects/Environment";
 
 function CameraRig({ progressRef, mobile }) {
   const { camera } = useThree();
@@ -52,6 +52,7 @@ function World({ progressRef, projects, onSelectProject, selectedId, mobile }) {
       <Hills />
       <Igloo progressRef={progressRef} />
       <Snow count={mobile ? 160 : 420} reduced={mobile} />
+      <Mist count={mobile ? 24 : 55} reduced={mobile} />
       {!mobile && (
         <IceShards
           projects={projects}
